@@ -27,6 +27,7 @@
     "postbuild": "next-sitemap"
   },
   "dependencies": {
+    "codemirror-graphql": "^2.0.6",
     "next": "^13.3.1",
     "next-seo": "^6.0.0",
     "next-sitemap": "^4.0.7",
