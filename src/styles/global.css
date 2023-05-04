@@ -4,9 +4,9 @@ a {
   @apply text-blue-700;
 }
 
-a:hover {
+/* a:hover {
   @apply border-b-2 border-blue-700;
-}
+} */
 
 @tailwind components;
 
@@ -18,4 +18,25 @@ a:hover {
 
 .content ul {
   @apply my-6;
+}
+
+#__next {
+  height: 100vh;
+}
+
+:root {
+  --main-color: hsl(219, 29%, 18%);
+  --secondary-color: hsl(0, 0%, 100%);
+  --btn-color: hsl(158, 60%, 42%);
+  --color-info: hsl(219, 61%, 61%);
+  --color-secondary: hsl(347, 100%, 71%);
+  --color-error: hsl(13, 100%, 66%);
+}
+
+:root [class="ligth"] {
+  --secondary-color: hsl(0, 0%, 100%);
+  --btn-color: hsl(158, 60%, 42%);
+  --color-info: hsl(219, 61%, 61%);
+  --color-secondary: hsl(347, 100%, 71%);
+  --color-error: hsl(13, 100%, 66%);
 }
