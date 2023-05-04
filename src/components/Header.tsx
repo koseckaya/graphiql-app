@@ -1,18 +1,28 @@
 import Link from 'next/link';
 import React, { useEffect, useRef, useState } from 'react';
 
-import useOnScreen from '@/handlers/observer';
 import { AppConfig } from '@/utils/AppConfig';
 
 const Header = () => {
   const headerRef = useRef<HTMLDivElement>(null);
-  const isScroll = useOnScreen(headerRef);
-  const [stuck, setStuck] = useState(false);
+  const [scrollTop, setScrollTop] = useState(false);
+
   useEffect(() => {
-    setStuck(isScroll);
-  }, [isScroll]);
-  const background = stuck ? 'bg-gray-900' : '';
-  const styles = `p-4 sticky top-0 flex content-center justify-between ${background}`;
+    const handleScroll = () => {
+      setScrollTop(window.scrollY > 0);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  const background = scrollTop
+    ? 'bg-gray-900 transition-colors ease-in-out delay-250'
+    : '';
+  const styles = `p-4 border-b border-gray-300 sticky top-0 flex content-center justify-between ${background}`;
 
   return (
     <header ref={headerRef} className={styles}>
