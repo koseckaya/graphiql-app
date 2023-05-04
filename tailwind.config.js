@@ -16,6 +16,8 @@ module.exports = {
     },
     extend: {
       colors: {
+        'main-color': 'var(--main-color)',
+        'secondary-color': 'var(--secondary-color)',
         gray: {
           100: '#f7fafc',
           200: '#edf2f7',
