@@ -1,8 +1,8 @@
 // FIXME: Update this configuration file based on your project information
 
 export const AppConfig = {
-  site_name: 'Starter',
-  title: 'Nextjs',
-  description: 'Starter code for your Nextjs Boilerplate with Tailwind CSS',
+  site_name: 'Graphql-clone',
+  title: 'Graphql-app',
+  description: '',
   locale: 'en',
 };
