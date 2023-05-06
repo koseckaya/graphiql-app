@@ -27,13 +27,16 @@
     "postbuild": "next-sitemap"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^1.9.5",
     "codemirror-graphql": "^2.0.6",
     "graphql": "^16.6.0",
     "next": "^13.3.1",
+    "next-redux-wrapper": "^8.1.0",
     "next-seo": "^6.0.0",
     "next-sitemap": "^4.0.7",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-redux": "^8.0.5"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.6.1",

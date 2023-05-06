@@ -1,4 +1,24 @@
+import type { ChangeEvent } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { selectEditorText, setEditorText } from '@/rtk/dataSlice';
+
 const Request = () => {
-  return <div>123</div>;
+  const dispatch = useDispatch();
+  const dataText = useSelector(selectEditorText);
+
+  const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    e.preventDefault();
+    dispatch(setEditorText(e.target.value));
+  };
+  return (
+    <div>
+      <textarea
+        onInput={handleChange}
+        placeholder="Set username"
+        value={dataText}
+      />
+    </div>
+  );
 };
 export default Request;
