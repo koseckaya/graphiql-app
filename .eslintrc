@@ -58,6 +58,7 @@
           "WithStatement"
         ], // Overrides Airbnb configuration and enable no-restricted-syntax
         "import/prefer-default-export": "off", // Named export is easier to refactor automatically
+        "import/no-extraneous-dependencies": "off",
         "simple-import-sort/imports": "error", // Import configuration for `eslint-plugin-simple-import-sort`
         "simple-import-sort/exports": "error", // Export configuration for `eslint-plugin-simple-import-sort`
         "@typescript-eslint/no-unused-vars": "off",
