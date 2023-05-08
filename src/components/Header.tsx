@@ -1,10 +1,9 @@
 import Link from 'next/link';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { AppConfig } from '@/utils/AppConfig';
 
 const Header = () => {
-  const headerRef = useRef<HTMLDivElement>(null);
   const [scrollTop, setScrollTop] = useState(false);
 
   useEffect(() => {
@@ -20,12 +19,13 @@ const Header = () => {
   }, []);
 
   const background = scrollTop
-    ? 'bg-gray-900 transition-colors ease-in-out delay-250'
+    ? 'bg-blue-900 transition-colors ease-in-out delay-250'
     : '';
-  const styles = `p-4 border-b border-gray-300 sticky top-0 flex content-center justify-between ${background}`;
 
   return (
-    <header ref={headerRef} className={styles}>
+    <header
+      className={`sticky top-0 flex content-center justify-between border-b border-gray-200 ${background} p-4`}
+    >
       <div className="basis-1/2">
         <h1 className="h-full text-4xl font-bold">{AppConfig.title}</h1>
       </div>
