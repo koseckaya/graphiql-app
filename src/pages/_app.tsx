@@ -1,4 +1,5 @@
 import '../styles/global.css';
+import '../firebase';
 
 import type { AppProps } from 'next/app';
 import { Provider } from 'react-redux';
