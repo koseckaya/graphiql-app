@@ -1,5 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
+import type { ApiResponse } from '@/types/apiTypes';
+
 const apiUrl = 'https://rickandmortyapi.graphcdn.app/';
 
 export interface Post {}
@@ -26,7 +28,18 @@ export const api = createApi({
         method: 'POST',
       }),
     }),
+    getDocumentationSchema: builder.query<ApiResponse, { queryString: string }>(
+      {
+        query: ({ queryString }) => ({
+          body: {
+            query: queryString,
+          },
+          url: '',
+          method: 'POST',
+        }),
+      }
+    ),
   }),
 });
 
-export const { useGetSchemaQuery } = api;
+export const { useGetSchemaQuery, useGetDocumentationSchemaQuery } = api;
