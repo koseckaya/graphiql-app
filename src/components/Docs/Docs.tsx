@@ -1,44 +1,54 @@
+import { useState } from 'react';
+
 import { useGetDocumentationSchemaQuery } from '@/rtk/apiSlice';
 
 const Docs = () => {
+  const [queries, setQueries] = useState<string[]>([]);
+
   const { data } = useGetDocumentationSchemaQuery({
     queryString:
-      'query IntrospectionQuery {\n' +
-      '__schema {\n' +
-      'queryType {\n' +
+      'query getFieldInfo {\n' +
+      `__type(name: "${queries[queries.length - 1]}") {\n` +
       'name\n' +
       'fields {\n' +
       'name\n' +
-      'description\n' +
       'args {\n' +
       'name\n' +
       'type {\n' +
       'name\n' +
-      'inputFields {\n' +
+      '}\n' +
+      '}\n' +
+      'description\n' +
+      'type {\n' +
       'name\n' +
-      '}\n' +
-      '}\n' +
-      '}\n' +
       '}\n' +
       '}\n' +
       '}\n' +
       '}',
   });
 
-  return data ? (
-    <div>
-      {data.data.__schema.queryType.fields?.map((field) => (
-        <p key={field.name}>
-          {field.name}(
-          {field.args.map((arg) => (
-            <span key={arg.name}>{arg.name}</span>
-          ))}
-          )
+  return (
+    <>
+      <button
+        onClick={() => setQueries([...queries.slice(0, queries.length - 1)])}
+        type="button"
+        className="m-2 border-2 border-b-blue-200 p-3"
+      >
+        BACK
+      </button>
+      {queries.length ? (
+        <div className="overflow-auto break-words p-2">
+          {JSON.stringify(data)}
+        </div>
+      ) : (
+        <p>
+          <span>query</span> :{' '}
+          <button type="button" onClick={() => setQueries(['Query'])}>
+            Query
+          </button>
         </p>
-      ))}
-    </div>
-  ) : (
-    <h2>An error occurs while loading api schema, please reload the page.</h2>
+      )}
+    </>
   );
 };
 export default Docs;

@@ -3,30 +3,35 @@ export interface ApiResponse {
 }
 
 export interface Data {
-  __schema: Schema;
+  __type: Type;
 }
 
-export interface Schema {
-  queryType: Type;
+export interface Type {
+  name: string;
+  fields: Field[];
+  __typename: TypeName;
 }
 
-export interface TypeClass {
-  name: null | string;
-  ofType: Type | null;
+export interface Field {
+  name: string;
+  args: Arg[];
+  description: string;
+  type: TypeClass;
+  __typename: string;
 }
 
 export interface Arg {
   name: string;
   type: TypeClass;
+  __typename: TypeName;
 }
 
-export interface Field {
-  name: string;
-  description: string;
-  args: Arg[];
+export enum TypeName {
+  InputValue = '__InputValue',
+  Type = '__Type',
 }
 
-export interface Type {
+export interface TypeClass {
   name: null | string;
-  fields: Field[] | null;
+  __typename: TypeName;
 }
