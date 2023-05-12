@@ -33,5 +33,9 @@ export enum TypeName {
 
 export interface TypeClass {
   name: null | string;
+  kind: string;
+  ofType: {
+    name: string;
+  };
   __typename: TypeName;
 }

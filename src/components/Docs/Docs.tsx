@@ -1,5 +1,7 @@
+// libs
 import { useState } from 'react';
 
+// api
 import { useGetDocumentationSchemaQuery } from '@/rtk/apiSlice';
 
 const Docs = () => {
@@ -20,6 +22,10 @@ const Docs = () => {
       '}\n' +
       'description\n' +
       'type {\n' +
+      ' kind\n' +
+      ' ofType {\n' +
+      'name\n' +
+      ' }\n' +
       'name\n' +
       '}\n' +
       '}\n' +
@@ -37,13 +43,71 @@ const Docs = () => {
         BACK
       </button>
       {queries.length ? (
-        <div className="overflow-auto break-words p-2">
-          {JSON.stringify(data)}
+        <div className="h-5/6 overflow-auto break-words p-2">
+          <h2 className="text-rose-500">{data?.data.__type?.name}</h2>
+          {data?.data.__type?.fields?.map((field) =>
+            field.args.length ? (
+              <p key={field.name} className="m-2">
+                <span className="text-blue-200">{field.name}</span>(
+                {field.args.map((arg, idx, arr) => (
+                  <>
+                    <span key={arg.name} className="text-rose-500">
+                      {arg.name}
+                    </span>
+                    :{' '}
+                    <span className="text-amber-400">
+                      {arg.name === 'id' && 'ID!'}
+                      {arg.name === 'ids' && '[ID!]!'}
+                      {arg.name !== 'id' && arg.name !== 'ids' && arg.type.name}
+                    </span>
+                    {arr.length > 1 && idx !== arr.length - 1 && ', '}
+                  </>
+                ))}
+                ):{' '}
+                <button
+                  type="button"
+                  className="cursor-pointer text-amber-400 hover:text-amber-600"
+                  onClick={() =>
+                    field.type.name
+                      ? setQueries([...queries, field.type.name])
+                      : setQueries([...queries, field.type.ofType.name])
+                  }
+                >
+                  {field.type.kind === 'LIST'
+                    ? `[${field.type.ofType.name}]`
+                    : field.type.name}
+                </button>
+                <p className="text-2xl">{field.description}</p>
+              </p>
+            ) : (
+              <p key={field.name} className="m-2">
+                <span className="text-blue-200">{field.name}</span>:{' '}
+                <button
+                  type="button"
+                  className="cursor-pointer text-amber-400 hover:text-amber-600"
+                  onClick={() =>
+                    field.type.name
+                      ? setQueries([...queries, field.type.name])
+                      : setQueries([...queries, field.type.ofType.name])
+                  }
+                >
+                  {field.type.kind === 'LIST'
+                    ? `[${field.type.ofType.name}]`
+                    : field.type.name}
+                </button>
+                <p className="text-2xl">{field.description}</p>
+              </p>
+            )
+          )}
         </div>
       ) : (
-        <p>
-          <span>query</span> :{' '}
-          <button type="button" onClick={() => setQueries(['Query'])}>
+        <p className="p-2">
+          <span className="text-blue-200">query</span> :{' '}
+          <button
+            className="text-amber-400"
+            type="button"
+            onClick={() => setQueries(['Query'])}
+          >
             Query
           </button>
         </p>
