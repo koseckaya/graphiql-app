@@ -12,14 +12,14 @@ export interface DataState {
   editorText: string;
   responseText: string;
   variables: string;
-  headers: Headers;
+  headers: string;
 }
 
 const initialState: DataState = {
   editorText: '',
   responseText: 'There will be a response',
-  variables: '{}',
-  headers: {},
+  variables: '',
+  headers: '',
 };
 
 export const dataSlice = createSlice({
@@ -32,11 +32,30 @@ export const dataSlice = createSlice({
         editorText: action.payload,
       };
     },
+    setHeaders: (state, action: PayloadAction<any>) => {
+      return {
+        ...state,
+        headers: action.payload,
+      };
+    },
+    setVariables: (state, action: PayloadAction<any>) => {
+      return {
+        ...state,
+        variables: action.payload,
+      };
+    },
   },
 });
 
-export const { setEditorText } = dataSlice.actions;
+export const { setEditorText, setHeaders, setVariables } = dataSlice.actions;
 
 export const selectEditorText = (state: AppState) => state.data.editorText;
+export const selectEditorData = (state: AppState) => {
+  return {
+    editorText: state.data.editorText,
+    variables: state.data.variables,
+    headers: state.data.headers,
+  };
+};
 
 export default dataSlice.reducer;
