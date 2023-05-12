@@ -3,10 +3,12 @@ import { createWrapper } from 'next-redux-wrapper';
 
 import { api } from './apiSlice';
 import { dataSlice } from './dataSlice';
+import { userSlice } from './userSlice';
 
 const reducers = {
   [dataSlice.name]: dataSlice.reducer,
   [api.reducerPath]: api.reducer,
+  [userSlice.name]: userSlice.reducer,
 };
 
 const reducer = combineReducers(reducers);

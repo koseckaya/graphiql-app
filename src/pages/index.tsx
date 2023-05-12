@@ -1,10 +1,12 @@
 import Link from 'next/link';
 
 import Team from '@/components/Team';
+import { useAuth } from '@/helpers/useAuth';
 import { Meta } from '@/layouts/Meta';
 import { Main } from '@/templates/Main';
 
 const Index = () => {
+  const { isAuth } = useAuth();
   return (
     <Main meta={<Meta title="Welcome Page" description="Team description" />}>
       <section className="mx-auto my-12 flex w-4/5 flex-col justify-center gap-y-3">
@@ -18,7 +20,7 @@ const Index = () => {
         </p>
         <div className="mt-4 text-center text-4xl">
           <span className="text-center">Try it now</span>
-          <Link href="/editor/">
+          <Link href={isAuth ? '/editor/' : '/login'}>
             <button
               type="button"
               className="ml-5 inline-flex w-14 items-center rounded-lg border border-secondary-color bg-blue-700 p-3 text-center  text-sm font-medium text-blue-700 hover:bg-blue-900 hover:text-white"
