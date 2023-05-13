@@ -10,6 +10,7 @@ class MyDocument extends Document {
         <Head />
         <body className="bg-main-color">
           <Main />
+          <div id="modal" />
           <NextScript />
         </body>
       </Html>

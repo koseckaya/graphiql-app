@@ -10,8 +10,9 @@ import {
 } from '@/rtk/dataSlice';
 
 import { GQLTextarea } from '../GQLTextarea';
+import type { Props } from '../GQLTextarea/GQLTextarea';
 
-function isJson(str) {
+function isJson(str: string) {
   try {
     JSON.parse(str);
   } catch (e) {
@@ -70,7 +71,7 @@ const Request = () => {
 
   console.log('5151515151', mode, mode === 'headers' ? headers : variables);
 
-  let textareaProps = {};
+  let textareaProps: Props | {} = {};
   if (mode === 'headers') {
     textareaProps = {
       onInput: handleHeaders,
@@ -89,7 +90,7 @@ const Request = () => {
     <div>
       <GQLTextarea
         onInput={handleChange}
-        placeholder="Set username"
+        placeholder="Set GQL request"
         value={editorText}
       />
       <button onClick={handleSend} type="button">

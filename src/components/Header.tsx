@@ -1,10 +1,21 @@
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 
+import { useAuth } from '@/helpers/useAuth';
+import { removeUser } from '@/rtk/userSlice';
 import { AppConfig } from '@/utils/AppConfig';
+
+import ClientOnlyPortal from './Portal/ClientOnlyPortal';
+import Modal from './Portal/Modal';
 
 const Header = () => {
   const [scrollTop, setScrollTop] = useState(false);
+  const { isAuth } = useAuth();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const router = useRouter();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -17,6 +28,20 @@ const Header = () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
+
+  const handleSignOut = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleEventModal = () => {
+    dispatch(removeUser());
+    router.push('/');
+    setIsModalOpen(false);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
   const background = scrollTop
     ? 'bg-blue-900 transition-colors ease-in-out delay-250'
@@ -39,15 +64,31 @@ const Header = () => {
               Welcome
             </Link>
           </li>
-          <li className="mr-6">
-            <Link
-              href="/login"
-              className="border-none text-secondary-color hover:text-blue-700"
-            >
-              Sign In/ Sign Up
-            </Link>
-          </li>
+          {isAuth && (
+            <button type="button" onClick={handleSignOut} className="mx-4">
+              Sign out
+            </button>
+          )}
+          {!isAuth && (
+            <li className="mr-6">
+              <Link
+                href="/login"
+                className="border-none text-secondary-color hover:text-blue-700"
+              >
+                Sign In / Sign Up
+              </Link>
+            </li>
+          )}
         </ul>
+        {isModalOpen && (
+          <ClientOnlyPortal selector="#modal">
+            <Modal
+              message="Are you sure you want to sign out?"
+              callBack={handleEventModal}
+              closeModal={closeModal}
+            />
+          </ClientOnlyPortal>
+        )}
       </nav>
     </header>
   );

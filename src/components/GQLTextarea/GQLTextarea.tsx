@@ -1,10 +1,10 @@
 import type { ChangeEvent } from 'react';
 import { useCallback } from 'react';
 
-interface Props {
-  onInput: (value: string) => void;
-  placeholder: string;
-  value: string;
+export interface Props {
+  onInput?: (value: string) => void;
+  placeholder?: string;
+  value?: string;
 }
 
 const GQLTextarea = ({ onInput, placeholder, value }: Props) => {
@@ -18,7 +18,7 @@ const GQLTextarea = ({ onInput, placeholder, value }: Props) => {
   const handleChange = useCallback(
     (e: ChangeEvent<HTMLTextAreaElement>) => {
       e.preventDefault();
-      onInput(e.target.value);
+      if (onInput) onInput(e.target.value);
     },
     [onInput]
   );

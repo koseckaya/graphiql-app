@@ -21,6 +21,14 @@ const EmailInput = () => {
             Please provide a valid email
           </p>
         </Form.Message>
+        <Form.Message
+          className="text-[14px] text-white opacity-[0.8]"
+          match={(value) => !value.match(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g)}
+        >
+          <p className="text-[14px] text-white opacity-[0.8]">
+            Please provide a valid email
+          </p>
+        </Form.Message>
       </div>
       <Form.Control asChild>
         <input
