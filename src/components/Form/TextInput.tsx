@@ -1,5 +1,7 @@
 import * as Form from '@radix-ui/react-form';
 
+import InputTip from './InputTip';
+
 const TextInput = () => {
   return (
     <Form.Field className="mb-[10px] grid" name="name">
@@ -19,8 +21,9 @@ const TextInput = () => {
             !value.match(/^\s*([A-Za-z]{2,}([.,] |[-']| ))+[A-Za-z]+\.?\s*$/)
           }
         >
-          <p className="text-[14px] text-white opacity-[0.8]">
+          <p className="flex text-[14px] text-white opacity-[0.8]">
             Enter correct name
+            <InputTip message="Enter your first and last name with a space" />
           </p>
         </Form.Message>
       </div>

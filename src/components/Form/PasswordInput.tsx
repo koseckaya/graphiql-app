@@ -1,7 +1,7 @@
 import * as Form from '@radix-ui/react-form';
 import { useState } from 'react';
 
-import PasswordTip from './PasswordTip';
+import InputTip from './InputTip';
 
 const PasswordInput = () => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -29,7 +29,7 @@ const PasswordInput = () => {
         >
           <p className="flex text-[14px] text-white opacity-[0.8]">
             Create strong password
-            <PasswordTip />
+            <InputTip message="Strong password - minimum 8 symbols, at least one letter, one digit, one special character." />
           </p>
         </Form.Message>
       </div>
