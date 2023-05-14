@@ -1,5 +1,6 @@
 import { Docs } from '@/components/Docs';
 import { Request } from '@/components/Request';
+import withAuth from '@/helpers/withAuthHOC';
 import { Meta } from '@/layouts/Meta';
 import { Main } from '@/templates/Main';
 
@@ -19,4 +20,4 @@ const Blog = () => (
   </Main>
 );
 
-export default Blog;
+export default withAuth(Blog);

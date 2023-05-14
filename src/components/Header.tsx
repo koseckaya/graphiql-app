@@ -52,25 +52,28 @@ const Header = () => {
       className={`sticky top-0 flex content-center justify-between border-b border-gray-200 ${background} p-4`}
     >
       <div className="basis-1/2">
-        <h1 className="h-full text-4xl font-bold">{AppConfig.title}</h1>
+        <h1 className="h-full text-4xl font-bold">
+          <Link
+            href="/"
+            className="border-none text-secondary-color hover:text-blue-700"
+          >
+            {AppConfig.title}
+          </Link>
+        </h1>
       </div>
       <nav>
         <ul className="flex h-full flex-wrap content-center text-2xl">
-          <li className="mr-6">
-            <Link
-              href="/"
-              className="border-none text-secondary-color hover:text-blue-700"
-            >
-              Welcome
-            </Link>
-          </li>
-          {isAuth && (
-            <button type="button" onClick={handleSignOut} className="mx-4">
-              Sign out
-            </button>
-          )}
-          {!isAuth && (
-            <li className="mr-6">
+          {isAuth ? (
+            <li className="mr-4">
+              <Link
+                href="/editor"
+                className="border-none text-secondary-color hover:text-blue-700"
+              >
+                Go to Main Page
+              </Link>
+            </li>
+          ) : (
+            <li className="mr-4">
               <Link
                 href="/login"
                 className="border-none text-secondary-color hover:text-blue-700"
@@ -78,6 +81,11 @@ const Header = () => {
                 Sign In / Sign Up
               </Link>
             </li>
+          )}
+          {isAuth && (
+            <button type="button" onClick={handleSignOut} className="mx-4">
+              Sign out
+            </button>
           )}
         </ul>
         {isModalOpen && (
