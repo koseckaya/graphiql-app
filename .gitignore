@@ -49,3 +49,4 @@ local
 
 # vercel
 .vercel
+.env
