@@ -4,7 +4,12 @@ import type { ApiResponse } from '@/types/apiTypes';
 
 const apiUrl = 'https://rickandmortyapi.graphcdn.app/';
 
-export interface Post {}
+export interface Response {
+  data: ResponseSchema;
+}
+export interface ResponseSchema {
+  __schema: any;
+}
 
 export const api = createApi({
   reducerPath: 'api',
@@ -17,7 +22,7 @@ export const api = createApi({
     },
   }),
   endpoints: (builder) => ({
-    getSchema: builder.query<Post, Partial<Post>>({
+    getSchema: builder.query<Response, string>({
       query: () => ({
         body: {
           query:

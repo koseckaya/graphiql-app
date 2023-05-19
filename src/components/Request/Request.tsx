@@ -10,16 +10,12 @@ import {
 } from '@/rtk/dataSlice';
 
 import { GQLTextarea } from '../GQLTextarea';
-import type { Props } from '../GQLTextarea/GQLTextarea';
 
-function isJson(str: string) {
-  try {
-    JSON.parse(str);
-  } catch (e) {
-    return false;
-  }
-  return true;
-}
+const options = {
+  activeClasses: '',
+  inactiveClasses:
+    'border-transparent hover:border-gray-300 hover:text-gray-600 dark:hover:text-gray-300',
+};
 
 const Request = () => {
   const dispatch = useDispatch();
@@ -33,7 +29,6 @@ const Request = () => {
 
   const handleHeaders = useCallback(
     (value: string) => {
-      console.log(isJson(value));
       dispatch(setHeaders(value));
     },
     [mode]
@@ -41,8 +36,6 @@ const Request = () => {
 
   const handleVariables = useCallback(
     (value: string) => {
-      console.log(value);
-      // dispatch(setVariables(editValue));
       dispatch(setVariables(value));
     },
     [mode]
@@ -50,41 +43,10 @@ const Request = () => {
 
   console.log('data', data, editorText, variables, headers);
 
-  // const query = fetch('https://rickandmortyapi.graphcdn.app/', {
-  //   method: 'POST',
-  //   headers: {
-  //     'Content-Type': 'application/json',
-  //   },
-  //   body: JSON.stringify({
-  //     query: dataText,
-  //   }),
-  // })
-  //   .then((res) => res.json())
-  //   .then((result) => console.log('result', result));
-
   const handleSend = useCallback(() => {
     // query();
-    console.log(editorText);
-    console.log(headers);
-    console.log(variables);
+    console.log(headers, variables, editorText);
   }, [headers, variables, editorText]);
-
-  console.log('5151515151', mode, mode === 'headers' ? headers : variables);
-
-  let textareaProps: Props | {} = {};
-  if (mode === 'headers') {
-    textareaProps = {
-      onInput: handleHeaders,
-      placeholder: 'Set JSON headers',
-      value: headers,
-    };
-  } else {
-    textareaProps = {
-      onInput: handleVariables,
-      placeholder: 'Set JSON variables',
-      value: variables,
-    };
-  }
 
   return (
     <div>
@@ -97,24 +59,63 @@ const Request = () => {
         Send
       </button>
 
-      <div>
-        <button
-          onClick={() => setMode('variables')}
-          type="button"
-          className={mode === 'variables' ? 'active' : ''}
+      <div className="mb-4 border-b border-gray-200 dark:border-gray-700">
+        <ul
+          className="-mb-px flex flex-wrap text-center text-sm font-medium"
+          id="myTab"
+          data-tabs-toggle="#myTabContent"
+          role="tablist"
         >
-          Variables
-        </button>
-        <button
-          onClick={() => setMode('headers')}
-          type="button"
-          className={mode === 'headers' ? 'active' : ''}
-        >
-          Headers
-        </button>
+          <li className="mr-2" role="presentation">
+            <button
+              className={`inline-block rounded-t-lg border-b-2 p-4 ${
+                mode === 'variables'
+                  ? options.activeClasses
+                  : options.inactiveClasses
+              }`}
+              type="button"
+              role="tab"
+              onClick={() => setMode('variables')}
+            >
+              Variables
+            </button>
+          </li>
+          <li className="mr-2" role="presentation">
+            <button
+              className={`inline-block rounded-t-lg border-b-2 p-4 ${
+                mode === 'headers'
+                  ? options.activeClasses
+                  : options.inactiveClasses
+              }`}
+              type="button"
+              role="tab"
+              onClick={() => setMode('headers')}
+            >
+              Headers
+            </button>
+          </li>
+        </ul>
       </div>
-
-      <GQLTextarea {...textareaProps} />
+      <div>
+        {mode === 'variables' && (
+          <div className="rounded-lg bg-gray-50 p-4 dark:bg-gray-800">
+            <GQLTextarea
+              onInput={handleVariables}
+              placeholder="Set JSON variables"
+              value={variables}
+            />
+          </div>
+        )}
+        {mode === 'headers' && (
+          <div className="rounded-lg bg-gray-50 p-4 dark:bg-gray-800">
+            <GQLTextarea
+              onInput={handleHeaders}
+              placeholder="Set JSON headers"
+              value={headers}
+            />
+          </div>
+        )}
+      </div>
     </div>
   );
 };

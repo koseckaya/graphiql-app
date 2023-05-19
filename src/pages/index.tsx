@@ -11,7 +11,7 @@ const Index = () => {
     <Main meta={<Meta title="Welcome Page" description="Team description" />}>
       <section className="mx-auto my-12 flex w-4/5 flex-col justify-center gap-y-3">
         <h2 className="text-center text-5xl font-bold text-blue-700">
-          GraphiQL
+          GraphQL
         </h2>
         <p className="mt-8 text-center text-2xl ">
           is an interactive in-browser GraphQL IDE. This is a fantastic
