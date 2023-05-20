@@ -1,32 +1,34 @@
 import * as Form from '@radix-ui/react-form';
+import { useTranslation } from 'next-i18next';
 
 const EmailInput = () => {
+  const { t } = useTranslation('common');
   return (
     <Form.Field className="mb-[10px] grid" name="email">
-      <div className="flex items-baseline justify-between">
+      <div className="flex items-end justify-between">
         <Form.Label className="text-[24px] font-medium leading-[38px] text-white">
-          Email
+          {t('email')}
         </Form.Label>
         <Form.Message
-          className="text-[18px] text-white opacity-[0.8]"
+          className="text-end text-[18px] text-white opacity-[0.8]"
           match="valueMissing"
         >
-          Please enter your email
+          {t('email_empty')}
         </Form.Message>
         <Form.Message
           className="text-[14px] text-white opacity-[0.8]"
           match="typeMismatch"
         >
-          <p className="text-[14px] text-white opacity-[0.8]">
-            Please provide a valid email
+          <p className="text-end text-[14px] text-white opacity-[0.8]">
+            {t('email_error')}
           </p>
         </Form.Message>
         <Form.Message
           className="text-[14px] text-white opacity-[0.8]"
           match={(value) => !value.match(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g)}
         >
-          <p className="text-[14px] text-white opacity-[0.8]">
-            Please provide a valid email
+          <p className="text-end text-[14px] text-white opacity-[0.8]">
+            {t('email_error')}
           </p>
         </Form.Message>
       </div>

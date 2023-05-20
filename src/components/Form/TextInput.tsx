@@ -1,19 +1,21 @@
 import * as Form from '@radix-ui/react-form';
+import { useTranslation } from 'next-i18next';
 
 import InputTip from './InputTip';
 
 const TextInput = () => {
+  const { t } = useTranslation('common');
   return (
     <Form.Field className="mb-[10px] grid" name="name">
       <div className="flex items-baseline justify-between">
         <Form.Label className="text-[24px] font-medium leading-[38px] text-white">
-          Full name
+          {t('full_name')}
         </Form.Label>
         <Form.Message
           className="text-[18px] text-white opacity-[0.8]"
           match="valueMissing"
         >
-          Please enter your name
+          {t('full_name_empty')}
         </Form.Message>
         <Form.Message
           className="text-[18px] text-white"
@@ -22,8 +24,8 @@ const TextInput = () => {
           }
         >
           <p className="flex text-[14px] text-white opacity-[0.8]">
-            Enter correct name
-            <InputTip message="Enter your first and last name with a space" />
+            {t('full_name_error')}
+            <InputTip message={t('full_name_tip')} />
           </p>
         </Form.Message>
       </div>

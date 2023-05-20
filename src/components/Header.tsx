@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useTranslation } from 'next-i18next';
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
@@ -7,14 +8,18 @@ import { useAuth } from '@/helpers/useAuth';
 import { removeUser } from '@/rtk/userSlice';
 import { AppConfig } from '@/utils/AppConfig';
 
+import LanguageSwitcher from './LanguageSwitcher';
 import ClientOnlyPortal from './Portal/ClientOnlyPortal';
 import Modal from './Portal/Modal';
 
 const Header = () => {
   const [scrollTop, setScrollTop] = useState(false);
   const { isAuth } = useAuth();
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const router = useRouter();
+  const [lang, setLang] = useState(router.locale);
+  const { locales, pathname, query } = useRouter();
+  const { t } = useTranslation('common');
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -29,6 +34,13 @@ const Header = () => {
     };
   }, []);
 
+  const onSwitchLang = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setLang(e.currentTarget.value);
+    router.push({ pathname, query }, router.asPath, {
+      locale: e.currentTarget.value,
+    });
+  };
+
   const handleSignOut = () => {
     setIsModalOpen(true);
   };
@@ -42,7 +54,6 @@ const Header = () => {
   const closeModal = () => {
     setIsModalOpen(false);
   };
-
   const background = scrollTop
     ? 'bg-blue-900 transition-colors ease-in-out delay-250'
     : '';
@@ -69,7 +80,7 @@ const Header = () => {
                 href="/editor"
                 className="border-none text-secondary-color hover:text-blue-700"
               >
-                Go to Main Page
+                {t('go_to_main')}
               </Link>
             </li>
           ) : (
@@ -78,20 +89,27 @@ const Header = () => {
                 href="/login"
                 className="border-none text-secondary-color hover:text-blue-700"
               >
-                Sign In / Sign Up
+                {t('sign_in/sign_up')}
               </Link>
             </li>
           )}
           {isAuth && (
-            <button type="button" onClick={handleSignOut} className="mx-4">
-              Sign out
+            <button type="button" onClick={handleSignOut} className="mx-4 mb-1">
+              {t('sign_out')}
             </button>
           )}
+          <li>
+            <LanguageSwitcher
+              locales={locales as string[]}
+              lang={lang as string}
+              onSwitchLang={onSwitchLang}
+            />
+          </li>
         </ul>
         {isModalOpen && (
           <ClientOnlyPortal selector="#modal">
             <Modal
-              message="Are you sure you want to sign out?"
+              message={t('confirm_signout')}
               callBack={handleEventModal}
               closeModal={closeModal}
             />

@@ -1,3 +1,7 @@
+import type { GetStaticProps } from 'next';
+import type { Params } from 'next/dist/shared/lib/router/utils/route-matcher';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+
 import { Docs } from '@/components/Docs';
 import { Request } from '@/components/Request';
 import withAuth from '@/helpers/withAuthHOC';
@@ -21,3 +25,16 @@ const Blog = () => (
 );
 
 export default withAuth(Blog);
+
+export const getStaticProps: GetStaticProps<
+  { [key: string]: unknown },
+  Params
+> = async (context) => {
+  const { locale } = context;
+
+  return {
+    props: {
+      ...(await serverSideTranslations(locale as string)),
+    },
+  };
+};

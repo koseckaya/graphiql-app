@@ -6,6 +6,7 @@ import PasswordInput from './PasswordInput';
 import TextInput from './TextInput';
 
 const FormEl = (props: {
+  isSignUp: boolean;
   title: string;
   handleFormSubmit(data: { [k: string]: FormDataEntryValue }): void;
 }) => {
@@ -20,7 +21,7 @@ const FormEl = (props: {
       className="flex w-full flex-col justify-center"
       onSubmit={(event) => handleSubmit(event)}
     >
-      {props.title === 'Sign Up' && <TextInput />}
+      {props.isSignUp && <TextInput />}
       <EmailInput />
       <PasswordInput />
       <Form.Submit asChild>

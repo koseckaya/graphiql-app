@@ -1,9 +1,11 @@
 import * as Form from '@radix-ui/react-form';
+import { useTranslation } from 'next-i18next';
 import { useState } from 'react';
 
 import InputTip from './InputTip';
 
 const PasswordInput = () => {
+  const { t } = useTranslation('common');
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   function togglePasswordVisibility() {
@@ -13,13 +15,13 @@ const PasswordInput = () => {
     <Form.Field className="relative mb-[10px] grid" name="password">
       <div className="flex items-baseline justify-between">
         <Form.Label className="text-[24px] font-medium leading-[38px] text-white">
-          Password
+          {t('password')}
         </Form.Label>
         <Form.Message
           className="text-[18px] text-white opacity-[0.8]"
           match="valueMissing"
         >
-          Create a password
+          {t('password_empty')}
         </Form.Message>
         <Form.Message
           className="text-[18px] text-white"
@@ -28,8 +30,8 @@ const PasswordInput = () => {
           }
         >
           <p className="flex text-[14px] text-white opacity-[0.8]">
-            Create strong password
-            <InputTip message="Strong password - minimum 8 symbols, at least one letter, one digit, one special character." />
+            {t('password_error')}
+            <InputTip message={t('password_tip')} />
           </p>
         </Form.Message>
       </div>
