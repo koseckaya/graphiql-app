@@ -1,26 +1,28 @@
+import type { GetStaticProps } from 'next';
+import type { Params } from 'next/dist/shared/lib/router/utils/route-matcher';
 import Link from 'next/link';
+import { useTranslation } from 'next-i18next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 import Team from '@/components/Team';
-import { useAuth } from '@/helpers/useAuth';
+import { useAuthContext } from '@/context/contextAuth';
 import { Meta } from '@/layouts/Meta';
 import { Main } from '@/templates/Main';
 
 const Index = () => {
-  const { isAuth } = useAuth();
+  const { user } = useAuthContext();
+  const { t } = useTranslation(['welcome']);
+
   return (
     <Main meta={<Meta title="Welcome Page" description="Team description" />}>
       <section className="mx-auto my-12 flex w-4/5 flex-col justify-center gap-y-3">
         <h2 className="text-center text-5xl font-bold text-blue-700">
           GraphQL
         </h2>
-        <p className="mt-8 text-center text-2xl ">
-          is an interactive in-browser GraphQL IDE. This is a fantastic
-          developer tool to help you <br /> form queries and explore your
-          Schema.
-        </p>
+        <p className="mt-8 text-center text-2xl ">{t('project_description')}</p>
         <div className="mt-4 text-center text-4xl">
-          <span className="text-center">Try it now</span>
-          <Link href={isAuth ? '/editor/' : '/login'}>
+          <span className="text-center">{t('try_it')}</span>
+          <Link href={user ? '/editor/' : '/login'}>
             <button
               type="button"
               className="ml-5 inline-flex w-14 items-center rounded-lg border border-secondary-color bg-blue-700 p-3 text-center  text-sm font-medium text-blue-700 hover:bg-blue-900 hover:text-white"
@@ -49,3 +51,16 @@ const Index = () => {
 };
 
 export default Index;
+
+export const getStaticProps: GetStaticProps<
+  { [key: string]: unknown },
+  Params
+> = async (context) => {
+  const { locale } = context;
+
+  return {
+    props: {
+      ...(await serverSideTranslations(locale as string)),
+    },
+  };
+};

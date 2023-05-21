@@ -9,6 +9,8 @@ export interface Data {
 export interface Type {
   name: string;
   fields: Field[];
+  description: string;
+  inputFields: Field[];
   __typename: TypeName;
 }
 

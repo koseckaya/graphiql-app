@@ -1,24 +1,29 @@
+import { useTranslation } from 'next-i18next';
+
 const Team = () => {
+  const { t } = useTranslation(['welcome']);
   const members = [
     {
-      name: 'Ludmila Koseckaya',
+      name: t('Mila'),
       img: 'https://avatars.githubusercontent.com/u/85253058?v=4',
       info: '',
     },
     {
-      name: 'Vitalii Ponomarov',
+      name: t('Vitaliy'),
       img: 'https://avatars.githubusercontent.com/u/5475964?v=4',
       info: '',
     },
     {
-      name: 'Zhanna Chaikovska',
+      name: t('Zhanna'),
       img: 'https://avatars.githubusercontent.com/u/87633082?v=4',
       info: '',
     },
   ];
   return (
     <>
-      <h2 className="mb-4 mt-20 text-center text-5xl text-gray-300">Team</h2>
+      <h2 className="mb-4 mt-20 text-center text-5xl text-gray-300">
+        {t('team')}
+      </h2>
       <div className="flex justify-between">
         {members.map((member) => {
           return (
