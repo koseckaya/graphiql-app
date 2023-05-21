@@ -1,4 +1,3 @@
-// @ts-nocheck
 import 'codemirror/addon/lint/lint.css';
 import 'codemirror/addon/hint/show-hint.css';
 import 'codemirror/lib/codemirror.css';
@@ -16,17 +15,22 @@ export interface Props {
   onInput?: (value: string) => void;
   placeholder?: string;
   value?: string;
+  type?: 'graphql' | 'json';
 }
 
-const GQLTextarea = ({ onInput, placeholder, value }: Props) => {
-  const { data } = useGetSchemaQuery('');
+const GQLTextarea = ({
+  onInput,
+  placeholder,
+  value,
+  type = 'graphql',
+}: Props) => {
+  const { apiSchema } = useGetSchemaQuery('');
   const myTextarea = useRef(null);
-  // const [query, setQuery] = useState(value);
 
   let schema: GraphQLSchema | null = null;
 
-  if (data) {
-    schema = buildClientSchema(data.data);
+  if (apiSchema) {
+    schema = buildClientSchema(apiSchema.data);
   }
 
   const handleChange = useCallback(
@@ -36,10 +40,6 @@ const GQLTextarea = ({ onInput, placeholder, value }: Props) => {
     },
     [onInput]
   );
-
-  // useEffect(() => {
-  //   setQuery(value);
-  // }, [placeholder]);
 
   useEffect(() => {
     let CodeMirror: CodeMirrorType = null;
@@ -56,7 +56,7 @@ const GQLTextarea = ({ onInput, placeholder, value }: Props) => {
       require('codemirror-graphql/utils/info-addon');
       CodeMirror = require('codemirror');
       const cm = CodeMirror.fromTextArea(myTextarea.current, {
-        mode: 'graphql',
+        mode: type,
         lineNumbers: true,
         theme: 'darcula',
         gutters: ['CodeMirror-lint-markers'],

@@ -1,13 +1,14 @@
 import { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { useGetSchemaQuery } from '@/rtk/apiSlice';
+import { useCreateRequestMutation } from '@/rtk/apiSlice';
 import {
   selectEditorData,
   setEditorText,
   setHeaders,
   setVariables,
 } from '@/rtk/dataSlice';
+import { setResponse } from '@/rtk/responseSlice';
 
 import { GQLTextarea } from '../GQLTextarea';
 
@@ -17,11 +18,18 @@ const options = {
     'border-transparent hover:border-gray-300 hover:text-gray-600 dark:hover:text-gray-300',
 };
 
+const DEFAULT_ERRORS = {
+  headers: '',
+  variables: '',
+  query: '',
+};
+
 const Request = () => {
   const dispatch = useDispatch();
   const { editorText, variables, headers } = useSelector(selectEditorData);
-  const { data } = useGetSchemaQuery('');
   const [mode, setMode] = useState<string>('variables');
+  const [createRequest] = useCreateRequestMutation();
+  const [errors, setErrors] = useState(DEFAULT_ERRORS);
 
   const handleChange = (value: string) => {
     dispatch(setEditorText(value));
@@ -41,12 +49,39 @@ const Request = () => {
     [mode]
   );
 
-  console.log('data', data, editorText, variables, headers);
+  const validateParams = useCallback(
+    (headersList: string, variablesList: string) => {
+      try {
+        JSON.parse(headersList);
+      } catch (e) {
+        setErrors({ ...DEFAULT_ERRORS, headers: 'Not valid Headers' });
+        return false;
+      }
+      try {
+        JSON.parse(variablesList);
+      } catch (e) {
+        setErrors({ ...DEFAULT_ERRORS, variables: 'Not valid Variables' });
+        return false;
+      }
+      return true;
+    },
+    [setErrors, errors]
+  );
 
   const handleSend = useCallback(() => {
-    // query();
-    console.log(headers, variables, editorText);
-  }, [headers, variables, editorText]);
+    if (validateParams(headers, variables)) {
+      const headersList = JSON.parse(headers);
+      const variablesList = JSON.parse(variables);
+      createRequest({
+        headers: headersList,
+        query: editorText,
+        variables: variablesList,
+      }).then(({ data }) => {
+        console.log('resp', data);
+        dispatch(setResponse(data));
+      });
+    }
+  }, [headers, variables, editorText, dispatch, setResponse]);
 
   return (
     <div>
@@ -55,6 +90,7 @@ const Request = () => {
         placeholder="Set GQL request"
         value={editorText}
       />
+      {!!errors.query.length && <div>Неверный Query</div>}
       <button onClick={handleSend} type="button">
         Send
       </button>
@@ -116,6 +152,8 @@ const Request = () => {
           </div>
         )}
       </div>
+      {!!errors.variables.length && <div>{errors.variables}</div>}
+      {!!errors.headers.length && <div>{errors.headers}</div>}
     </div>
   );
 };

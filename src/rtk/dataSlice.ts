@@ -11,8 +11,8 @@ export interface DataState {
 
 const initialState: DataState = {
   editorText: '',
-  variables: '',
-  headers: '',
+  variables: '{\n\n}',
+  headers: '{\n\n}',
 };
 
 export const dataSlice = createSlice({
