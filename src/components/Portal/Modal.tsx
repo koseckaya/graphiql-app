@@ -1,8 +1,11 @@
+import { useTranslation } from 'next-i18next';
+
 const Modal = (props: {
   message: string;
   callBack(): void;
   closeModal(): void;
 }) => {
+  const { t } = useTranslation('common');
   return (
     <div
       id="popup-modal"
@@ -40,7 +43,7 @@ const Modal = (props: {
               type="button"
               className="mr-2 inline-flex items-center rounded-lg bg-red-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 dark:focus:ring-red-800"
             >
-              Yes, I&apos;m sure
+              {t('confirm_close_modal')}
             </button>
             <button
               data-modal-hide="popup-modal"
@@ -48,7 +51,7 @@ const Modal = (props: {
               onClick={props.closeModal}
               className="rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-900 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:border-gray-500 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-600"
             >
-              No, cancel
+              {t('cancel_close_modal')}
             </button>
           </div>
         </div>

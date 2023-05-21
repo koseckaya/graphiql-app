@@ -1,6 +1,6 @@
 import * as Tooltip from '@radix-ui/react-tooltip';
 
-const PasswordTip = () => {
+const InputTip = (props: { message: string }) => {
   return (
     <Tooltip.Provider>
       <Tooltip.Root delayDuration={0}>
@@ -22,12 +22,9 @@ const PasswordTip = () => {
           </button>
         </Tooltip.Trigger>
         <Tooltip.Portal>
-          <Tooltip.Content className="h-36 w-52">
+          <Tooltip.Content className="h-auto w-52">
             <div className="rounded-lg border-gray-200 bg-gray-100 px-3 py-2">
-              <p>
-                Strong password - minimum 8 symbols, at least one letter, one
-                digit, one special character.
-              </p>
+              <p>{props.message}</p>
             </div>
           </Tooltip.Content>
         </Tooltip.Portal>
@@ -36,4 +33,4 @@ const PasswordTip = () => {
   );
 };
 
-export default PasswordTip;
+export default InputTip;
