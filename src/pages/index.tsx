@@ -5,12 +5,12 @@ import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 import Team from '@/components/Team';
-import { useAuth } from '@/helpers/useAuth';
+import { useAuthContext } from '@/context/contextAuth';
 import { Meta } from '@/layouts/Meta';
 import { Main } from '@/templates/Main';
 
 const Index = () => {
-  const { isAuth } = useAuth();
+  const { user } = useAuthContext();
   const { t } = useTranslation(['welcome']);
 
   return (
@@ -22,7 +22,7 @@ const Index = () => {
         <p className="mt-8 text-center text-2xl ">{t('project_description')}</p>
         <div className="mt-4 text-center text-4xl">
           <span className="text-center">{t('try_it')}</span>
-          <Link href={isAuth ? '/editor/' : '/login'}>
+          <Link href={user ? '/editor/' : '/login'}>
             <button
               type="button"
               className="ml-5 inline-flex w-14 items-center rounded-lg border border-secondary-color bg-blue-700 p-3 text-center  text-sm font-medium text-blue-700 hover:bg-blue-900 hover:text-white"

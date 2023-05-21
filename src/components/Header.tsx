@@ -1,10 +1,11 @@
+import { getAuth, signOut } from 'firebase/auth';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { useAuth } from '@/helpers/useAuth';
+import { useAuthContext } from '@/context/contextAuth';
 import { removeUser } from '@/rtk/userSlice';
 import { AppConfig } from '@/utils/AppConfig';
 
@@ -14,8 +15,9 @@ import Modal from './Portal/Modal';
 
 const Header = () => {
   const [scrollTop, setScrollTop] = useState(false);
-  const { isAuth } = useAuth();
+  const { user } = useAuthContext();
   const router = useRouter();
+  const auth = getAuth();
   const [lang, setLang] = useState(router.locale);
   const { locales, pathname, query } = useRouter();
   const { t } = useTranslation('common');
@@ -48,6 +50,7 @@ const Header = () => {
   const handleEventModal = () => {
     dispatch(removeUser());
     router.push('/');
+    signOut(auth);
     setIsModalOpen(false);
   };
 
@@ -74,7 +77,7 @@ const Header = () => {
       </div>
       <nav>
         <ul className="flex h-full flex-wrap content-center text-2xl">
-          {isAuth ? (
+          {user ? (
             <li className="mr-4">
               <Link
                 href="/editor"
@@ -93,7 +96,7 @@ const Header = () => {
               </Link>
             </li>
           )}
-          {isAuth && (
+          {user && (
             <button type="button" onClick={handleSignOut} className="mx-4 mb-1">
               {t('sign_out')}
             </button>
