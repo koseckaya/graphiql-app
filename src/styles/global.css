@@ -1,4 +1,5 @@
 @import '../styles/form.css';
+@import '../styles/accordion.css';
 
 @tailwind base;
 
@@ -41,4 +42,8 @@ a {
   --color-info: hsl(219, 61%, 61%);
   --color-secondary: hsl(347, 100%, 71%);
   --color-error: hsl(13, 100%, 66%);
+}
+
+.CodeMirror-code {
+  font-size: 12px;
 }

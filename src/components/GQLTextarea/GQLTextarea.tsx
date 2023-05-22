@@ -16,12 +16,14 @@ export interface Props {
   placeholder?: string;
   value?: string;
   type?: 'graphql' | 'json';
+  readOnlyParam?: boolean;
 }
 
 const GQLTextarea = ({
   onInput,
   placeholder,
   value,
+  readOnlyParam = false,
   type = 'graphql',
 }: Props) => {
   const { apiSchema } = useGetSchemaQuery('');
@@ -60,6 +62,9 @@ const GQLTextarea = ({
         lineNumbers: true,
         theme: 'darcula',
         gutters: ['CodeMirror-lint-markers'],
+        tabSize: 2,
+        lineWrapping: true,
+        readOnly: readOnlyParam,
         lint: {
           schema,
         },
@@ -81,8 +86,8 @@ const GQLTextarea = ({
       ref={myTextarea}
       onChange={handleChange}
       placeholder={placeholder}
-      cols={35}
-      rows={20}
+      cols={75}
+      rows={30}
       value={value}
     />
   );

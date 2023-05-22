@@ -9,9 +9,11 @@ const Response = () => {
 
   return (
     <div>
-      {data && (
-        <GQLTextarea type="json" value={JSON.stringify(data, null, 2)} />
-      )}
+      <GQLTextarea
+        type="json"
+        value={JSON.stringify(data, null, 2)}
+        readOnlyParam
+      />
     </div>
   );
 };
