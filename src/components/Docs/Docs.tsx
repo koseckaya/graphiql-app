@@ -62,7 +62,7 @@ const Docs = () => {
   }
 
   return queries.length ? (
-    <section className="h-7/8 w-full overflow-auto break-words p-2">
+    <div className="h-7/8 w-full overflow-auto break-words p-2">
       <button
         onClick={() => setQueries([...queries.slice(0, queries.length - 1)])}
         type="button"
@@ -184,7 +184,7 @@ const Docs = () => {
           <p className="text-2xl">{field.description}</p>
         </p>
       ))}
-    </section>
+    </div>
   ) : (
     <section className="p-2">
       <div>

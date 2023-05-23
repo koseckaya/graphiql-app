@@ -54,7 +54,7 @@ const Blog = () => {
       }
     >
       <div className="flex flex-col justify-between gap-2 p-2 lg:flex-row">
-        <div
+        <section
           className={`transition-width flex h-screen justify-center rounded-lg bg-slate-600 shadow shadow-slate-300 ${
             isDocsOpen ? 'w-full' : 'w-28'
           }`}
@@ -97,17 +97,17 @@ const Blog = () => {
             </Suspense>
           )}
           {isDocsOpen && isTransition && <div className="w-full" />}
-        </div>
-        <div
-          className={`${docsContainerClass} transition-width -z-10 h-screen overflow-auto rounded-lg bg-slate-600 shadow shadow-slate-300`}
+        </section>
+        <section
+          className={`${docsContainerClass} transition-width h-screen overflow-auto rounded-lg bg-slate-600 shadow shadow-slate-300`}
         >
           <Request />
-        </div>
-        <div
+        </section>
+        <section
           className={`${docsContainerClass} transition-width h-screen rounded-lg bg-slate-600 shadow shadow-slate-300`}
         >
           Response
-        </div>
+        </section>
       </div>
     </Main>
   ) : null;
