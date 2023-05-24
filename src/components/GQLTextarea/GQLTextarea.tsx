@@ -3,7 +3,6 @@ import 'codemirror/addon/hint/show-hint.css';
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/darcula.css';
 
-import type CodeMirrorType from 'codemirror';
 import type { GraphQLSchema } from 'graphql';
 import { buildClientSchema } from 'graphql';
 import type { ChangeEvent } from 'react';
@@ -46,14 +45,12 @@ const GQLTextarea = ({
   );
 
   useEffect(() => {
-    console.log(refEditor.current);
     if (refEditor.current) {
       refEditor.current.getDoc().setValue(value);
     }
   }, [value]);
 
   useEffect(() => {
-    console.log(myTextarea.current);
     if (
       myTextarea.current &&
       typeof window !== 'undefined' &&

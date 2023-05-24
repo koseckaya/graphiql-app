@@ -2,7 +2,7 @@ import * as Accordion from '@radix-ui/react-accordion';
 import { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { useCreateRequestMutation } from '@/rtk/apiSlice';
+import { useGraphqlRequestMutation } from '@/rtk/apiSlice';
 import {
   selectEditorData,
   setEditorText,
@@ -10,6 +10,7 @@ import {
   setVariables,
 } from '@/rtk/dataSlice';
 import { setResponse } from '@/rtk/responseSlice';
+import type { ApiRequestResponse } from '@/types/apiTypes';
 
 import { GQLTextarea } from '../GQLTextarea';
 
@@ -29,7 +30,7 @@ const Request = () => {
   const dispatch = useDispatch();
   const { editorText, variables, headers } = useSelector(selectEditorData);
   const [mode, setMode] = useState<string>('variables');
-  const [createRequest] = useCreateRequestMutation();
+  const [graphqlRequest] = useGraphqlRequestMutation();
   const [errors, setErrors] = useState(DEFAULT_ERRORS);
 
   const handleChange = (value: string) => {
@@ -73,15 +74,17 @@ const Request = () => {
     if (validateParams(headers, variables)) {
       const headersList = JSON.parse(headers);
       const variablesList = JSON.parse(variables);
-      createRequest({
+      graphqlRequest({
         headers: headersList,
         query: editorText,
         variables: variablesList,
-      }).then(({ data, error }) => {
+      }).then((response) => {
+        const { data = null, error = null } = response as ApiRequestResponse;
+
         if (data) {
           dispatch(setResponse(data));
-        } else {
-          dispatch(setResponse(error.data));
+        } else if (error) {
+          dispatch(setResponse(error?.data));
         }
       });
     }

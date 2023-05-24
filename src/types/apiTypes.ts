@@ -41,3 +41,18 @@ export interface TypeClass {
   };
   __typename: TypeName;
 }
+
+export interface MutationQuery {
+  headers: string[][];
+  query: string;
+  variables: object;
+}
+
+export interface ApiRequestResponse {
+  data?: object;
+  error?: ApiErrorResponse;
+}
+
+export interface ApiErrorResponse {
+  data: object;
+}
