@@ -5,8 +5,8 @@ import { selectResponse } from '@/rtk/responseSlice';
 import { GQLTextarea } from '../GQLTextarea';
 
 const Response = () => {
-  const data = useSelector(selectResponse);
-
+  let data = useSelector(selectResponse);
+  if (!data) data = {};
   return (
     <div>
       <GQLTextarea
