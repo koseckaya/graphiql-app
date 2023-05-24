@@ -3,7 +3,6 @@ import 'codemirror/addon/hint/show-hint.css';
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/darcula.css';
 
-import type CodeMirrorType from 'codemirror';
 import type { GraphQLSchema } from 'graphql';
 import { buildClientSchema } from 'graphql';
 import type { ChangeEvent } from 'react';
@@ -16,18 +15,22 @@ export interface Props {
   placeholder?: string;
   value?: string;
   type?: 'graphql' | 'json';
+  readOnlyParam?: boolean;
 }
 
 const GQLTextarea = ({
   onInput,
   placeholder,
   value,
+  readOnlyParam = false,
   type = 'graphql',
 }: Props) => {
   const { apiSchema } = useGetSchemaQuery('');
   const myTextarea = useRef(null);
+  const refEditor = useRef(null);
 
   let schema: GraphQLSchema | null = null;
+  let CodeMirror: CodeMirrorType = null;
 
   if (apiSchema) {
     schema = buildClientSchema(apiSchema.data);
@@ -42,7 +45,12 @@ const GQLTextarea = ({
   );
 
   useEffect(() => {
-    let CodeMirror: CodeMirrorType = null;
+    if (refEditor.current) {
+      refEditor.current.getDoc().setValue(value);
+    }
+  }, [value]);
+
+  useEffect(() => {
     if (
       myTextarea.current &&
       typeof window !== 'undefined' &&
@@ -60,6 +68,9 @@ const GQLTextarea = ({
         lineNumbers: true,
         theme: 'darcula',
         gutters: ['CodeMirror-lint-markers'],
+        tabSize: 2,
+        lineWrapping: true,
+        readOnly: readOnlyParam,
         lint: {
           schema,
         },
@@ -73,6 +84,8 @@ const GQLTextarea = ({
           onInput(instance.getValue());
         }
       });
+
+      refEditor.current = cm;
     }
   }, []);
 
@@ -81,8 +94,8 @@ const GQLTextarea = ({
       ref={myTextarea}
       onChange={handleChange}
       placeholder={placeholder}
-      cols={35}
-      rows={20}
+      cols={75}
+      rows={30}
       value={value}
     />
   );

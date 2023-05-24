@@ -8,6 +8,7 @@ import React, { lazy, Suspense, useCallback, useState } from 'react';
 
 import Loader from '@/components/Loader';
 import { Request } from '@/components/Request';
+import { Response } from '@/components/Response';
 import { Meta } from '@/layouts/Meta';
 import { Main } from '@/templates/Main';
 
@@ -103,10 +104,11 @@ const Blog = () => {
         >
           <Request />
         </section>
+
         <section
           className={`${docsContainerClass} transition-width h-screen rounded-lg bg-slate-600 shadow shadow-slate-300`}
         >
-          Response
+          <Response />
         </section>
       </div>
     </Main>

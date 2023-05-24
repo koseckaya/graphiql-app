@@ -1,7 +1,8 @@
+import * as Accordion from '@radix-ui/react-accordion';
 import { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { useCreateRequestMutation } from '@/rtk/apiSlice';
+import { useGraphqlRequestMutation } from '@/rtk/apiSlice';
 import {
   selectEditorData,
   setEditorText,
@@ -9,6 +10,7 @@ import {
   setVariables,
 } from '@/rtk/dataSlice';
 import { setResponse } from '@/rtk/responseSlice';
+import type { ApiRequestResponse } from '@/types/apiTypes';
 
 import { GQLTextarea } from '../GQLTextarea';
 
@@ -28,7 +30,7 @@ const Request = () => {
   const dispatch = useDispatch();
   const { editorText, variables, headers } = useSelector(selectEditorData);
   const [mode, setMode] = useState<string>('variables');
-  const [createRequest] = useCreateRequestMutation();
+  const [graphqlRequest] = useGraphqlRequestMutation();
   const [errors, setErrors] = useState(DEFAULT_ERRORS);
 
   const handleChange = (value: string) => {
@@ -72,13 +74,18 @@ const Request = () => {
     if (validateParams(headers, variables)) {
       const headersList = JSON.parse(headers);
       const variablesList = JSON.parse(variables);
-      createRequest({
+      graphqlRequest({
         headers: headersList,
         query: editorText,
         variables: variablesList,
-      }).then(({ data }) => {
-        console.log('resp', data);
-        dispatch(setResponse(data));
+      }).then((response) => {
+        const { data = null, error = null } = response as ApiRequestResponse;
+
+        if (data) {
+          dispatch(setResponse(data));
+        } else if (error) {
+          dispatch(setResponse(error?.data));
+        }
       });
     }
   }, [headers, variables, editorText, dispatch, setResponse]);
@@ -90,68 +97,84 @@ const Request = () => {
         placeholder="Set GQL request"
         value={editorText}
       />
-      {!!errors.query.length && <div>Неверный Query</div>}
       <button onClick={handleSend} type="button">
         Send
       </button>
+      <Accordion.Root
+        className="AccordionRoot"
+        type="single"
+        defaultValue="item-1"
+        collapsible
+      >
+        <Accordion.Item className="AccordionItem" value="item-1">
+          <Accordion.AccordionTrigger>
+            ▼ Headers & Variables
+          </Accordion.AccordionTrigger>
+          <Accordion.AccordionContent className="AccordionContent">
+            {!!errors.query.length && <div>Неверный Query</div>}
 
-      <div className="mb-4 border-b border-gray-200 dark:border-gray-700">
-        <ul
-          className="-mb-px flex flex-wrap text-center text-sm font-medium"
-          id="myTab"
-          data-tabs-toggle="#myTabContent"
-          role="tablist"
-        >
-          <li className="mr-2" role="presentation">
-            <button
-              className={`inline-block rounded-t-lg border-b-2 p-4 ${
-                mode === 'variables'
-                  ? options.activeClasses
-                  : options.inactiveClasses
-              }`}
-              type="button"
-              role="tab"
-              onClick={() => setMode('variables')}
-            >
-              Variables
-            </button>
-          </li>
-          <li className="mr-2" role="presentation">
-            <button
-              className={`inline-block rounded-t-lg border-b-2 p-4 ${
-                mode === 'headers'
-                  ? options.activeClasses
-                  : options.inactiveClasses
-              }`}
-              type="button"
-              role="tab"
-              onClick={() => setMode('headers')}
-            >
-              Headers
-            </button>
-          </li>
-        </ul>
-      </div>
-      <div>
-        {mode === 'variables' && (
-          <div className="rounded-lg bg-gray-50 p-4 dark:bg-gray-800">
-            <GQLTextarea
-              onInput={handleVariables}
-              placeholder="Set JSON variables"
-              value={variables}
-            />
-          </div>
-        )}
-        {mode === 'headers' && (
-          <div className="rounded-lg bg-gray-50 p-4 dark:bg-gray-800">
-            <GQLTextarea
-              onInput={handleHeaders}
-              placeholder="Set JSON headers"
-              value={headers}
-            />
-          </div>
-        )}
-      </div>
+            <div className="mb-4 border-b border-gray-200 dark:border-gray-700">
+              <ul
+                className="-mb-px flex flex-wrap text-center text-sm font-medium"
+                id="myTab"
+                data-tabs-toggle="#myTabContent"
+                role="tablist"
+              >
+                <li className="mr-2" role="presentation">
+                  <button
+                    className={`inline-block rounded-t-lg border-b-2 p-4 ${
+                      mode === 'variables'
+                        ? options.activeClasses
+                        : options.inactiveClasses
+                    }`}
+                    type="button"
+                    role="tab"
+                    onClick={() => setMode('variables')}
+                  >
+                    Variables
+                  </button>
+                </li>
+                <li className="mr-2" role="presentation">
+                  <button
+                    className={`inline-block rounded-t-lg border-b-2 p-4 ${
+                      mode === 'headers'
+                        ? options.activeClasses
+                        : options.inactiveClasses
+                    }`}
+                    type="button"
+                    role="tab"
+                    onClick={() => setMode('headers')}
+                  >
+                    Headers
+                  </button>
+                </li>
+              </ul>
+            </div>
+
+            <div>
+              {mode === 'variables' && (
+                <div className="rounded-lg bg-gray-50 p-4 dark:bg-gray-800">
+                  <GQLTextarea
+                    onInput={handleVariables}
+                    placeholder="Set JSON variables"
+                    value={variables}
+                  />
+                </div>
+              )}
+              {mode === 'headers' && (
+                <div className="rounded-lg bg-gray-50 p-4 dark:bg-gray-800">
+                  <GQLTextarea
+                    onInput={handleHeaders}
+                    placeholder="Set JSON headers"
+                    value={headers}
+                  />
+                </div>
+              )}
+            </div>
+          </Accordion.AccordionContent>
+        </Accordion.Item>
+      </Accordion.Root>
+
       {!!errors.variables.length && <div>{errors.variables}</div>}
       {!!errors.headers.length && <div>{errors.headers}</div>}
     </div>
