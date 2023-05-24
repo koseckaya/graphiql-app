@@ -1,60 +1,68 @@
 // libs
+import { useTranslation } from 'next-i18next';
 import { useState } from 'react';
 
+import Loader from '@/components/Loader';
 // api
 import { useGetDocumentationSchemaQuery } from '@/rtk/apiSlice';
 
 const Docs = () => {
   const [queries, setQueries] = useState<string[]>([]);
+  const { t } = useTranslation('common');
 
-  const { data, error } = useGetDocumentationSchemaQuery({
-    queryString:
-      'query getFieldInfo {\n' +
-      `__type(name: "${queries[queries.length - 1]}") {\n` +
-      'name\n' +
-      'description\n' +
-      'inputFields {\n' +
-      'name\n' +
-      'description\n' +
-      'type {\n' +
-      'name\n' +
-      'kind\n' +
-      'ofType {\n' +
-      'name\n' +
-      '}\n' +
-      '}\n' +
-      '}\n' +
-      'fields {\n' +
-      'name\n' +
-      'args {\n' +
-      'name\n' +
-      'type {\n' +
-      'name\n' +
-      '}\n' +
-      '}\n' +
-      'description\n' +
-      'type {\n' +
-      ' kind\n' +
-      ' ofType {\n' +
-      'name\n' +
-      ' }\n' +
-      'name\n' +
-      '}\n' +
-      '}\n' +
-      '}\n' +
-      '}',
-  });
+  const { data, error, isLoading, isFetching } = useGetDocumentationSchemaQuery(
+    {
+      queryString:
+        'query getFieldInfo {\n' +
+        `__type(name: "${queries[queries.length - 1]}") {\n` +
+        'name\n' +
+        'description\n' +
+        'inputFields {\n' +
+        'name\n' +
+        'description\n' +
+        'type {\n' +
+        'name\n' +
+        'kind\n' +
+        'ofType {\n' +
+        'name\n' +
+        '}\n' +
+        '}\n' +
+        '}\n' +
+        'fields {\n' +
+        'name\n' +
+        'args {\n' +
+        'name\n' +
+        'type {\n' +
+        'name\n' +
+        '}\n' +
+        '}\n' +
+        'description\n' +
+        'type {\n' +
+        ' kind\n' +
+        ' ofType {\n' +
+        'name\n' +
+        ' }\n' +
+        'name\n' +
+        '}\n' +
+        '}\n' +
+        '}\n' +
+        '}',
+    }
+  );
 
   if (error)
+    return <h2 className="p-2 text-2xl text-rose-400">{t('docs_error')}</h2>;
+
+  if (isFetching || isLoading) {
     return (
-      <h2 className="p-2 text-2xl text-rose-400">
-        An error occurs with API while processing query to documentation, please
-        reload the page.
-      </h2>
+      <div className="w-full">
+        <Loader />
+      </div>
     );
+  }
 
   return queries.length ? (
-    <section className="h-5/6 overflow-auto break-words p-2">
+    <div className="h-7/8 w-full overflow-auto break-words p-2">
       <button
         onClick={() => setQueries([...queries.slice(0, queries.length - 1)])}
         type="button"
@@ -176,12 +184,12 @@ const Docs = () => {
           <p className="text-2xl">{field.description}</p>
         </p>
       ))}
-    </section>
+    </div>
   ) : (
     <section className="p-2">
       <div>
-        <h2 className="text-3xl">Docs</h2>
-        <p>A GraphQL schema provides a root type for each kind of operation.</p>
+        <h2 className="text-3xl">{t('docs')}</h2>
+        <p>{t('docs_description')}</p>
       </div>
       <span className="text-blue-200">query</span> :{' '}
       <button

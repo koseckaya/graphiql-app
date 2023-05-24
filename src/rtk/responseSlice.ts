@@ -16,7 +16,6 @@ export const responseSlice = createSlice({
   initialState,
   reducers: {
     setResponse: (state, action: PayloadAction<object>) => {
-      console.log('action.payload', action.payload);
       return {
         ...state,
         data: action.payload,
