@@ -77,9 +77,12 @@ const Request = () => {
         headers: headersList,
         query: editorText,
         variables: variablesList,
-      }).then(({ data }) => {
-        console.log('resp', data);
-        dispatch(setResponse(data));
+      }).then(({ data, error }) => {
+        if (data) {
+          dispatch(setResponse(data));
+        } else {
+          dispatch(setResponse(error.data));
+        }
       });
     }
   }, [headers, variables, editorText, dispatch, setResponse]);

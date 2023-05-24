@@ -28,8 +28,10 @@ const GQLTextarea = ({
 }: Props) => {
   const { apiSchema } = useGetSchemaQuery('');
   const myTextarea = useRef(null);
+  const refEditor = useRef(null);
 
   let schema: GraphQLSchema | null = null;
+  let CodeMirror: CodeMirrorType = null;
 
   if (apiSchema) {
     schema = buildClientSchema(apiSchema.data);
@@ -44,7 +46,14 @@ const GQLTextarea = ({
   );
 
   useEffect(() => {
-    let CodeMirror: CodeMirrorType = null;
+    console.log(refEditor.current);
+    if (refEditor.current) {
+      refEditor.current.getDoc().setValue(value);
+    }
+  }, [value]);
+
+  useEffect(() => {
+    console.log(myTextarea.current);
     if (
       myTextarea.current &&
       typeof window !== 'undefined' &&
@@ -78,6 +87,8 @@ const GQLTextarea = ({
           onInput(instance.getValue());
         }
       });
+
+      refEditor.current = cm;
     }
   }, []);
 
