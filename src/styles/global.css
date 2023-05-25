@@ -42,3 +42,51 @@ a {
   --color-secondary: hsl(347, 100%, 71%);
   --color-error: hsl(13, 100%, 66%);
 }
+
+@layer components {
+  @media (max-width: 850px) {
+  .burger {
+    font-size: 1.3rem;
+  }
+  .burger ul {
+    margin-right: 10px;
+  }
+  .burger li {
+    margin-right: 10px;
+  }
+  .burger select {
+    margin: 0;
+    padding: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  header {
+    padding: 0;
+  }
+  .burger {
+    visibility: hidden;
+    background-color: #4a5568;
+    flex-direction: column;
+    justify-content: center;
+    position: absolute;
+    text-align: start;
+    top: 56px;
+    row-gap: 0.5rem;
+    right: 0;
+    padding: 10px;
+    width: 190px;
+  }
+  .burger button {
+    margin: 5px 0;
+  }
+}
+}
+
+@layer utilities{
+  @media (max-width: 768px) {
+  .burger {
+    height: auto;
+  }
+}
+}

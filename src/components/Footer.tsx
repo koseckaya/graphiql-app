@@ -11,21 +11,33 @@ const Footer = () => {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <Image src={logo} className="h-11 w-12" alt="github logo" />
+          <Image
+            src={logo}
+            className="h-8 w-8 sm:h-11 sm:w-12"
+            alt="github logo"
+          />
         </a>
         <a
           href="https://github.com/pnmrvvtl"
           target="_blank"
           rel="noopener noreferrer"
         >
-          <Image src={logo} className="h-11 w-12" alt="github logo" />
+          <Image
+            src={logo}
+            className="h-8 w-8 sm:h-11 sm:w-12"
+            alt="github logo"
+          />
         </a>
         <a
           href="https://github.com/zhannach"
           target="_blank"
           rel="noopener noreferrer"
         >
-          <Image src={logo} className="h-11 w-12" alt="github logo" />
+          <Image
+            src={logo}
+            className="h-8 w-8 sm:h-11 sm:w-12"
+            alt="github logo"
+          />
         </a>
       </div>
       <div className="text-2xl">2023</div>
@@ -37,7 +49,7 @@ const Footer = () => {
       >
         <img
           src="https://rs.school/images/rs_school_js.svg"
-          className="h-10"
+          className="h-8 sm:h-16"
           alt="rs-logo"
         />
       </a>

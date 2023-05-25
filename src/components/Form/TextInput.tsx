@@ -20,10 +20,12 @@ const TextInput = () => {
         <Form.Message
           className="text-[18px] text-white"
           match={(value) =>
-            !value.match(/^\s*([A-Za-z]{2,}([.,] |[-']| ))+[A-Za-z]+\.?\s*$/)
+            !value.match(
+              /^\s*([a-zA-Za-åa-ö-w-я]{2,}([.,] |[-']| ))+[a-zA-Za-åa-ö-w-я]+\.?\s*$/
+            )
           }
         >
-          <p className="flex text-[14px] text-white opacity-[0.8]">
+          <p className="flex text-end text-[16px] text-white opacity-[0.8]">
             {t('full_name_error')}
             <InputTip message={t('full_name_tip')} />
           </p>

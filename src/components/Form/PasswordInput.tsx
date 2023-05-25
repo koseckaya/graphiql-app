@@ -18,18 +18,18 @@ const PasswordInput = () => {
           {t('password')}
         </Form.Label>
         <Form.Message
-          className="text-[18px] text-white opacity-[0.8]"
+          className="text-end text-[18px] text-white opacity-[0.9]"
           match="valueMissing"
         >
           {t('password_empty')}
         </Form.Message>
         <Form.Message
-          className="text-[18px] text-white"
+          className="text-end text-[18px] text-white"
           match={(value) =>
             !value.match(/^(?=.*[A-Za-z])(?=.*[!@#$&*])(?=.*[0-9]).{8,}$/)
           }
         >
-          <p className="flex text-[14px] text-white opacity-[0.8]">
+          <p className="flex text-[16px] text-white opacity-[0.9]">
             {t('password_error')}
             <InputTip message={t('password_tip')} />
           </p>
