@@ -1,10 +1,12 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-import type { ApiResponse } from '@/types/apiTypes';
+import type {
+  ApiRequestResponse,
+  ApiResponse,
+  MutationQuery,
+} from '@/types/apiTypes';
 
 const apiUrl = 'https://rickandmortyapi.graphcdn.app/';
-
-export interface Post {}
 
 export const api = createApi({
   reducerPath: 'api',
@@ -17,7 +19,7 @@ export const api = createApi({
     },
   }),
   endpoints: (builder) => ({
-    getSchema: builder.query<Post, Partial<Post>>({
+    getSchema: builder.query<ApiResponse, string>({
       query: () => ({
         body: {
           query:
@@ -27,6 +29,16 @@ export const api = createApi({
         url: '',
         method: 'POST',
       }),
+    }),
+    graphqlRequest: builder.mutation<ApiRequestResponse, MutationQuery>({
+      query({ headers, query, variables }) {
+        return {
+          url: '/',
+          method: 'POST',
+          headers,
+          body: { query, variables },
+        };
+      },
     }),
     getDocumentationSchema: builder.query<ApiResponse, { queryString: string }>(
       {
@@ -42,4 +54,8 @@ export const api = createApi({
   }),
 });
 
-export const { useGetSchemaQuery, useGetDocumentationSchemaQuery } = api;
+export const {
+  useGetSchemaQuery,
+  useGetDocumentationSchemaQuery,
+  useGraphqlRequestMutation,
+} = api;
