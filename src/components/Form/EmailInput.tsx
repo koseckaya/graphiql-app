@@ -10,24 +10,24 @@ const EmailInput = () => {
           {t('email')}
         </Form.Label>
         <Form.Message
-          className="text-end text-[18px] text-white opacity-[0.8]"
+          className="text-end text-[18px] text-white opacity-[0.9]"
           match="valueMissing"
         >
           {t('email_empty')}
         </Form.Message>
         <Form.Message
-          className="text-[14px] text-white opacity-[0.8]"
+          className="text-[16px] text-white opacity-[0.9]"
           match="typeMismatch"
         >
-          <p className="text-end text-[14px] text-white opacity-[0.8]">
+          <p className="text-end text-[16px] text-white opacity-[0.9]">
             {t('email_error')}
           </p>
         </Form.Message>
         <Form.Message
-          className="text-[14px] text-white opacity-[0.8]"
+          className="text-[16px] text-white opacity-[0.8]"
           match={(value) => !value.match(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g)}
         >
-          <p className="text-end text-[14px] text-white opacity-[0.8]">
+          <p className="text-end text-[16px] text-white opacity-[0.9]">
             {t('email_error')}
           </p>
         </Form.Message>

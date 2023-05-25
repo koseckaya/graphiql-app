@@ -42,7 +42,7 @@ const Login = () => {
     <Main meta={<Meta title="Login" description="Sign In page" />}>
       <div className="mx-auto my-28 flex max-w-md justify-center rounded-lg bg-gray-600">
         <div className="w-10/12 space-y-2 p-6 sm:p-8 ">
-          <h2 className="text-center text-xl font-bold leading-tight tracking-tight text-gray-900 dark:text-white md:text-3xl">
+          <h2 className="text-center text-2xl font-bold leading-tight tracking-tight text-gray-900 dark:text-white md:text-3xl">
             {t('sign_in_title')}
           </h2>
           {isError && (

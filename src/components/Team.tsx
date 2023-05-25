@@ -21,13 +21,13 @@ const Team = () => {
   ];
   return (
     <>
-      <h2 className="mb-4 mt-20 text-center text-5xl text-gray-300">
+      <h2 className="mb-4 mt-5 text-center text-5xl text-gray-300 md:mt-10 lg:mt-20">
         {t('team')}
       </h2>
-      <div className="flex justify-between">
+      <div className="flex flex-col justify-between sm:flex-row">
         {members.map((member) => {
           return (
-            <div key={member.name} className="w-2/5">
+            <div key={member.name} className="w-2/5 self-center sm:self-auto">
               <img
                 src={member.img}
                 className="h-4/5 rounded-xl"

@@ -9,13 +9,13 @@ const Modal = (props: {
   return (
     <div
       id="popup-modal"
-      className="fixed z-50 h-full overflow-y-auto overflow-x-hidden p-4 md:inset-0"
+      className="fixed inset-0 z-50 h-full overflow-y-auto overflow-x-hidden"
     >
-      <div className="relative left-1/3 top-40 max-h-full w-full max-w-md">
+      <div className="relative left-2/4 top-64 max-h-full w-4/5 max-w-md -translate-x-1/2">
         <div className="relative rounded-lg bg-gray-600  shadow dark:bg-gray-700">
           <button
             type="button"
-            className="absolute right-2.5 top-3 ml-auto inline-flex items-center rounded-lg bg-transparent p-1.5 text-sm text-gray-400 hover:bg-gray-200 hover:text-gray-900 dark:hover:bg-gray-800 dark:hover:text-white"
+            className="absolute right-2.5 top-3 ml-auto inline-flex items-center rounded-lg bg-transparent text-sm text-gray-400 hover:bg-gray-200 hover:text-gray-900 dark:hover:bg-gray-800 dark:hover:text-white sm:p-1.5"
             onClick={props.closeModal}
           >
             <svg
