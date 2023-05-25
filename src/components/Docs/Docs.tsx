@@ -50,8 +50,7 @@ const Docs = () => {
     }
   );
 
-  if (error)
-    return <h2 className="p-2 text-2xl text-rose-400">{t('docs_error')}</h2>;
+  if (error) return <h2 className="p-2 text-rose-400">{t('docs_error')}</h2>;
 
   if (isFetching || isLoading) {
     return (
@@ -62,7 +61,7 @@ const Docs = () => {
   }
 
   return queries.length ? (
-    <div className="h-7/8 w-full overflow-auto break-words p-2">
+    <div className="w-full overflow-auto break-words p-2">
       <button
         onClick={() => setQueries([...queries.slice(0, queries.length - 1)])}
         type="button"
@@ -71,8 +70,8 @@ const Docs = () => {
         {'<< '}
         {queries.at(-2) ? queries.at(-2) : 'Docs'}
       </button>
-      <h2 className="text-2xl text-rose-500">{data?.data.__type?.name}</h2>
-      <h3 className="text-xl">{data?.data.__type?.description}</h3>
+      <h2 className="text-rose-500">{data?.data.__type?.name}</h2>
+      <h3>{data?.data.__type?.description}</h3>
       {data?.data.__type?.fields?.map((field) =>
         field.args.length ? (
           <p key={field.name} className="m-2">
@@ -113,7 +112,7 @@ const Docs = () => {
                 ? `[${field.type.ofType.name}]`
                 : field.type.name}
             </button>
-            <p className="text-2xl">{field.description}</p>
+            <p>{field.description}</p>
           </p>
         ) : (
           <p key={field.name} className="m-2">
@@ -161,7 +160,7 @@ const Docs = () => {
                       )
                     )}]`}
             </button>
-            <p className="text-2xl">{field.description}</p>
+            <p>{field.description}</p>
           </p>
         )
       )}
@@ -181,14 +180,14 @@ const Docs = () => {
               ? `[${field.type.ofType.name}]`
               : field.type.name}
           </button>
-          <p className="text-2xl">{field.description}</p>
+          <p>{field.description}</p>
         </p>
       ))}
     </div>
   ) : (
     <section className="p-2">
       <div>
-        <h2 className="text-3xl">{t('docs')}</h2>
+        <h2>{t('docs')}</h2>
         <p>{t('docs_description')}</p>
       </div>
       <span className="text-blue-200">query</span> :{' '}

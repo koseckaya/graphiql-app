@@ -56,8 +56,8 @@ const Blog = () => {
     >
       <div className="flex flex-col justify-between gap-2 p-2 lg:flex-row">
         <section
-          className={`transition-width flex h-screen justify-center rounded-lg bg-slate-600 shadow shadow-slate-300 ${
-            isDocsOpen ? 'w-full' : 'w-28'
+          className={`transition-width flex h-screen justify-center rounded-lg bg-slate-600 text-base shadow shadow-slate-300 ${
+            isDocsOpen ? 'w-full' : 'w-[4.5rem]'
           }`}
           onTransitionEnd={() => {
             setIsTransition(false);
@@ -70,7 +70,7 @@ const Blog = () => {
               className="flex pt-4 text-white"
             >
               {isDocsOpen ? (
-                <div className="flex w-28 flex-col items-center justify-end hover:text-blue-200">
+                <div className="flex w-[4.5rem] flex-col items-center justify-end hover:text-blue-200">
                   <Image
                     alt="book icon"
                     src="/assets/images/close.png"
@@ -80,7 +80,7 @@ const Blog = () => {
                   {t('close_docs')}
                 </div>
               ) : (
-                <div className="flex w-16 flex-col items-center justify-end hover:text-blue-200">
+                <div className="flex w-[4.5rem] flex-col items-center justify-end hover:text-blue-200">
                   <Image
                     alt="book icon"
                     src="/assets/images/open.png"
