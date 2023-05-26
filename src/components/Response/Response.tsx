@@ -1,3 +1,4 @@
+import { useCallback } from 'react';
 import { useSelector } from 'react-redux';
 
 import { selectResponse } from '@/rtk/responseSlice';
@@ -8,9 +9,9 @@ const Response = () => {
   let data = useSelector(selectResponse);
   if (!data) data = {};
 
-  const handleCopy = () => {
+  const handleCopy = useCallback(() => {
     if (data) navigator.clipboard.writeText(JSON.stringify(data));
-  };
+  }, []);
 
   return (
     <div className="answer relative h-full">
@@ -34,6 +35,7 @@ const Response = () => {
           viewBox="0 0 460 460"
           xmlSpace="preserve"
         >
+          <title>Copy response</title>
           <g>
             <path
               d="M425.934,0H171.662c-18.122,0-32.864,14.743-32.864,32.864v77.134h30V32.864c0-1.579,1.285-2.864,2.864-2.864h254.272
