@@ -100,7 +100,7 @@ const Request = () => {
       <button
         onClick={handleSend}
         type="button"
-        className="absolute right-2 top-2 rounded bg-green-600 p-2"
+        className="absolute right-2 top-2 rounded bg-green-600 p-2 transition delay-150 ease-in-out hover:bg-green-800"
       >
         <svg
           height="1em"
@@ -123,10 +123,10 @@ const Request = () => {
       >
         <Accordion.Item className="AccordionItem" value="item-1">
           <Accordion.AccordionTrigger>
-            ▼ Headers & Variables
+            Headers & Variables ▼
           </Accordion.AccordionTrigger>
           <Accordion.AccordionContent className="AccordionContent">
-            {!!errors.query.length && <div>Неверный Query</div>}
+            {!!errors.query.length && <div>Incorrect Query</div>}
 
             <div className="mb-4 border-b border-gray-200 dark:border-gray-700">
               <ul
