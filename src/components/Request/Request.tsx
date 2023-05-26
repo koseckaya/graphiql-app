@@ -62,7 +62,10 @@ const Request = () => {
       try {
         JSON.parse(variablesList);
       } catch (e) {
-        setErrors({ ...DEFAULT_ERRORS, variables: 'Not valid Variables' });
+        setErrors({
+          ...DEFAULT_ERRORS,
+          variables: 'Not valid Variables',
+        });
         return false;
       }
       return true;
@@ -72,6 +75,7 @@ const Request = () => {
 
   const handleSend = useCallback(() => {
     if (validateParams(headers, variables)) {
+      setErrors(DEFAULT_ERRORS);
       const headersList = JSON.parse(headers);
       const variablesList = JSON.parse(variables);
       graphqlRequest({
@@ -82,7 +86,6 @@ const Request = () => {
         const { data = null, error = null } = response as ApiRequestResponse;
 
         if (data) {
-          setErrors(DEFAULT_ERRORS);
           dispatch(setResponse(data));
         } else if (error) {
           dispatch(setResponse(error?.data));
@@ -226,8 +229,16 @@ const Request = () => {
         </Accordion.Item>
       </Accordion.Root>
 
-      {!!errors.variables.length && <div>{errors.variables}</div>}
-      {!!errors.headers.length && <div>{errors.headers}</div>}
+      {!!errors.variables.length && (
+        <div className="bottom-94 absolute left-1/2 text-red-600">
+          {errors.variables}
+        </div>
+      )}
+      {!!errors.headers.length && (
+        <div className="bottom-94 absolute left-1/2 text-red-600">
+          {errors.headers}
+        </div>
+      )}
     </div>
   );
 };
