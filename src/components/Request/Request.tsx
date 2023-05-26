@@ -91,17 +91,32 @@ const Request = () => {
   }, [headers, variables, editorText, dispatch, setResponse]);
 
   return (
-    <div>
+    <div className="relative h-full">
       <GQLTextarea
         onInput={handleChange}
         placeholder="Set GQL request"
         value={editorText}
       />
-      <button onClick={handleSend} type="button">
-        Send
+      <button
+        onClick={handleSend}
+        type="button"
+        className="absolute right-2 top-2 rounded bg-green-600 p-2"
+      >
+        <svg
+          height="1em"
+          viewBox="0 0 16 18"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <title>play icon</title>
+          <path
+            d="M1.32226e-07 1.6609C7.22332e-08 0.907329 0.801887 0.424528 1.46789 0.777117L15.3306 8.11621C16.0401 8.49182 16.0401 9.50818 15.3306 9.88379L1.46789 17.2229C0.801886 17.5755 1.36076e-06 17.0927 1.30077e-06 16.3391L1.32226e-07 1.6609Z"
+            fill="currentColor"
+          />
+        </svg>
       </button>
       <Accordion.Root
-        className="AccordionRoot"
+        className="AccordionRoot absolute inset-x-0 bottom-2"
         type="single"
         defaultValue="item-1"
         collapsible
