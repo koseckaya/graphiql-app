@@ -65,12 +65,12 @@ const Docs = () => {
       <button
         onClick={() => setQueries([...queries.slice(0, queries.length - 1)])}
         type="button"
-        className="rounded border-2 border-blue-300 p-1 hover:text-blue-200"
+        className="mr-2 rounded border-2 border-blue-300 p-1 hover:text-blue-200"
       >
         {'<< '}
         {queries.at(-2) ? queries.at(-2) : 'Docs'}
       </button>
-      <h2 className="text-rose-500">{data?.data.__type?.name}</h2>
+      <h2 className="text-rose-500">{data?.data.__type?.name}: </h2>
       <h3>{data?.data.__type?.description}</h3>
       {data?.data.__type?.fields?.map((field) =>
         field.args.length ? (
@@ -187,7 +187,7 @@ const Docs = () => {
   ) : (
     <section className="p-2">
       <div>
-        <h2>{t('docs')}</h2>
+        <h2 className="text-blue-200">{t('docs')}</h2>
         <p>{t('docs_description')}</p>
       </div>
       <span className="text-blue-200">query</span> :{' '}
