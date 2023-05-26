@@ -16,6 +16,7 @@ export interface Props {
   value?: string;
   type?: 'graphql' | 'json';
   readOnlyParam?: boolean;
+  refreshTime?: number;
 }
 
 const GQLTextarea = ({
@@ -24,6 +25,7 @@ const GQLTextarea = ({
   value,
   readOnlyParam = false,
   type = 'graphql',
+  refreshTime = '',
 }: Props) => {
   const { apiSchema } = useGetSchemaQuery('');
   const myTextarea = useRef(null);
@@ -46,7 +48,12 @@ const GQLTextarea = ({
 
   useEffect(() => {
     if (refEditor.current) {
-      refEditor.current.getDoc().setValue(value);
+      const currentValue = (refEditor.current as CodeMirrorType)
+        .getDoc()
+        .getValue();
+      if (currentValue !== value) {
+        (refEditor.current as CodeMirrorType).getDoc().setValue(value);
+      }
     }
   }, [value]);
 
@@ -94,8 +101,6 @@ const GQLTextarea = ({
       ref={myTextarea}
       onChange={handleChange}
       placeholder={placeholder}
-      cols={75}
-      rows={30}
       value={value}
     />
   );

@@ -82,6 +82,7 @@ const Request = () => {
         const { data = null, error = null } = response as ApiRequestResponse;
 
         if (data) {
+          setErrors(DEFAULT_ERRORS);
           dispatch(setResponse(data));
         } else if (error) {
           dispatch(setResponse(error?.data));
@@ -90,12 +91,12 @@ const Request = () => {
     }
   }, [headers, variables, editorText, dispatch, setResponse]);
 
- const handleCopy = useCallback(() => {
-    if (data) navigator.clipboard.writeText(JSON.stringify(data));
+  const handleCopy = useCallback(() => {
+    if (editorText) navigator.clipboard.writeText(editorText);
   }, []);
 
   return (
-    <div className="relative h-full">
+    <div className="request relative h-full">
       <GQLTextarea
         onInput={handleChange}
         placeholder="Set GQL request"
@@ -119,7 +120,7 @@ const Request = () => {
           />
         </svg>
       </button>
-     <button
+      <button
         onClick={handleCopy}
         type="button"
         className="absolute right-2 top-12 rounded bg-green-600 p-2 transition delay-150 ease-in-out hover:bg-green-800"
