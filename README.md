@@ -1,42 +1,38 @@
-### Features
+# Final project RS-Clone React Course 2022Q3 by @zhannach, @pnmrvvtl, @koseckaya
 
-- ⚡ [Next.js](https://nextjs.org) for Static Site Generator
-- 🔥 Type checking [TypeScript](https://www.typescriptlang.org)
-- 💎 Integrate with [Tailwind CSS](https://tailwindcss.com)
-- ✅ Strict Mode for TypeScript and React 18
-- 📏 Linter with [ESLint](https://eslint.org) (default NextJS, NextJS Core Web Vitals, Tailwind CSS and Airbnb configuration)
-- 💖 Code Formatter with [Prettier](https://prettier.io)
-- 🦊 Husky for Git Hooks
-- 🚫 Lint-staged for running linters on Git staged files
-- 🚓 Lint git commit with Commitlint
-- 📓 Write standard compliant commit messages with Commitizen
-- 🦺 Unit Testing with Jest and React Testing Library
-- 🧪 E2E Testing with Cypress
-- 👷 Run tests on pull request with GitHub Actions
-- 🎉 Storybook for UI development
-- 🎁 Automatic changelog generation with Semantic Release
-- 🔍 Visual testing with Percy (Optional)
-- 💡 Absolute Imports using `@` prefix
-- 🗂 VSCode configuration: Debug, Settings, Tasks and extension for PostCSS, ESLint, Prettier, TypeScript, Jest
-- 🤖 SEO metadata, JSON-LD and Open Graph tags with Next SEO
+## Project description:
 
-```shell
-npm run dev
-```
+GraphiQL
+is an interactive in-browser GraphQL IDE. This is a fantastic developer tool to help you form queries and explore your Schema.
 
-- `public/apple-touch-icon.png`, `public/favicon.ico`, `public/favicon-16x16.png` and `public/favicon-32x32.png`: your website favicon, you can generate from https://favicon.io/favicon-converter/
-- `src/styles/global.css`: your CSS file using Tailwind CSS
-- `src/utils/AppConfig.ts`: configuration file
-- `src/templates/Main.tsx`: default theme
-- `next-sitemap.config.js`: sitemap configuration
+## Used stack:
 
-### Deploy to production
-```shell
-$ npm run build
-$ npm run start
-```
-You can create an optimized production build with:
+* Typescript 
+* React 
+* Next
+* Tailwind 
+* Firebase
+* Radix-ui
+* Codemirror
+* Redux Toolkit
+* i18next 
 
-```shell
-npm run build-prod
-```
+## Used API:
+
+* [Rick and Morty GraphQL API](https://rickandmortyapi.com/documentation)
+
+## Authors:
+
+* Zhanna Chaikovska - [Github](https://github.com/zhannach), [Discord](http://discordapp.com/users/zhannach#8353)
+* Ludmila Kosetskaya - [Github](https://github.com/koseckaya), [Discord](http://discordapp.com/users/Mila#7511)
+* Vitalii Ponomarov - [Github](https://github.com/pnmrvvtl), [Discord](http://discordapp.com/users/pnmrvvtl#4978)
+
+## Scripts
+
+* **npm run dev** - starting App on live server on local machine
+  on address http://localhost:3000/
+* **npm run build** - building development version of app at directory "dist"
+
+## Instructions
+
+[RSSchool 2023](https://rs.school)
