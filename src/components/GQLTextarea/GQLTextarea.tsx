@@ -4,11 +4,8 @@ import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/darcula.css';
 
 import type { GraphQLSchema } from 'graphql';
-import { buildClientSchema } from 'graphql';
 import type { ChangeEvent } from 'react';
 import { useCallback, useEffect, useRef } from 'react';
-
-import { useGetSchemaQuery } from '@/rtk/apiSlice';
 
 export interface Props {
   onInput?: (value: string) => void;
@@ -16,7 +13,7 @@ export interface Props {
   value?: string;
   type?: 'graphql' | 'json';
   readOnlyParam?: boolean;
-  refreshTime?: number;
+  schema?: GraphQLSchema | null;
 }
 
 const GQLTextarea = ({
@@ -25,18 +22,11 @@ const GQLTextarea = ({
   value,
   readOnlyParam = false,
   type = 'graphql',
-  refreshTime = '',
+  schema = null,
 }: Props) => {
-  const { apiSchema } = useGetSchemaQuery('');
   const myTextarea = useRef(null);
   const refEditor = useRef(null);
-
-  let schema: GraphQLSchema | null = null;
-  let CodeMirror: CodeMirrorType = null;
-
-  if (apiSchema) {
-    schema = buildClientSchema(apiSchema.data);
-  }
+  let CodeMirrorModule: unknown = null;
 
   const handleChange = useCallback(
     (e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -48,11 +38,9 @@ const GQLTextarea = ({
 
   useEffect(() => {
     if (refEditor.current) {
-      const currentValue = (refEditor.current as CodeMirrorType)
-        .getDoc()
-        .getValue();
+      const currentValue = (refEditor.current as any).getDoc().getValue();
       if (currentValue !== value) {
-        (refEditor.current as CodeMirrorType).getDoc().setValue(value);
+        (refEditor.current as any).getDoc().setValue(value);
       }
     }
   }, [value]);
@@ -69,26 +57,33 @@ const GQLTextarea = ({
       require('codemirror-graphql/lint');
       require('codemirror-graphql/mode');
       require('codemirror-graphql/utils/info-addon');
-      CodeMirror = require('codemirror');
-      const cm = CodeMirror.fromTextArea(myTextarea.current, {
+      CodeMirrorModule = require('codemirror');
+      const cmConfig = {
         mode: type,
         lineNumbers: true,
+        showHint: true,
         theme: 'darcula',
         gutters: ['CodeMirror-lint-markers'],
         tabSize: 2,
         lineWrapping: true,
         readOnly: readOnlyParam,
-        lint: {
-          schema,
-        },
-        hintOptions: {
-          schema,
-        },
-      });
+        lint: {},
+        hintOptions: {},
+      };
 
-      cm.on('change', (instance: typeof CodeMirror) => {
+      if (schema) {
+        cmConfig.lint = { schema };
+        cmConfig.hintOptions = { schema };
+      }
+
+      const cm = (CodeMirrorModule as any).fromTextArea(
+        myTextarea.current,
+        cmConfig
+      );
+
+      cm.on('change', (instance: typeof CodeMirrorModule) => {
         if (onInput) {
-          onInput(instance.getValue());
+          onInput((instance as any).getValue());
         }
       });
 

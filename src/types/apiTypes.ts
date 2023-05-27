@@ -1,3 +1,5 @@
+import type { IntrospectionQuery } from 'graphql';
+
 export interface ApiResponse {
   data: Data;
 }
@@ -55,4 +57,12 @@ export interface ApiRequestResponse {
 
 export interface ApiErrorResponse {
   data: object;
+}
+
+export interface ApiSchemaResponse {
+  data: ApiSchemaServerResponse;
+}
+
+export interface ApiSchemaServerResponse {
+  data: IntrospectionQuery;
 }
