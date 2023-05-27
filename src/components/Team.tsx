@@ -6,17 +6,17 @@ const Team = () => {
     {
       name: t('Mila'),
       img: 'https://avatars.githubusercontent.com/u/85253058?v=4',
-      info: '',
+      info: t('Mila_info'),
     },
     {
       name: t('Vitaliy'),
       img: 'https://avatars.githubusercontent.com/u/5475964?v=4',
-      info: '',
+      info: t('Vitaliy_info'),
     },
     {
       name: t('Zhanna'),
       img: 'https://avatars.githubusercontent.com/u/87633082?v=4',
-      info: '',
+      info: t('Zhanna_info'),
     },
   ];
   return (
@@ -24,17 +24,23 @@ const Team = () => {
       <h2 className="mb-4 mt-5 text-center text-5xl text-gray-300 md:mt-10 lg:mt-20">
         {t('team')}
       </h2>
-      <div className="flex flex-col justify-between sm:flex-row">
+      <div className="flex flex-col justify-between gap-6 sm:flex-row">
         {members.map((member) => {
           return (
-            <div key={member.name} className="w-2/5 self-center sm:self-auto">
+            <div
+              key={member.name}
+              className="flex w-4/5 flex-col self-center sm:w-1/3 sm:self-auto"
+            >
               <img
                 src={member.img}
-                className="h-4/5 rounded-xl"
+                className="h-auto rounded-xl"
                 alt={member.name}
               />
-              <p className="mt-5 text-center text-2xl">{member.name}</p>
-              <p>{member.info}</p>
+              <p className="mt-5 text-center text-3xl">{member.name}</p>
+              <p className="mt-3 text-center text-lg sm:mt-5 ">
+                {t('responsible_for')}:
+              </p>
+              <p className="text-center text-2xl">{member.info}</p>
             </div>
           );
         })}

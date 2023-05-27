@@ -21,7 +21,7 @@
   "password": "Password",
   "password_empty": " Create a password",
   "password_error": "Create a strong password",
-  "password_tip": "Strong password - minimum 8 symbols, at least one letter, one digit, one special character.",
+  "password_tip": "Strong password - minimum 8 symbols, at least one letter, one digit, one special character(!@#$%^&*)",
   "confirm_signout": "Are you sure you want to sign out?",
   "confirm_close_modal": "Yes, I'm sure",
   "cancel_close_modal": "No, cancel",
