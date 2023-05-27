@@ -1,4 +1,5 @@
 import * as Accordion from '@radix-ui/react-accordion';
+import { useTranslation } from 'next-i18next';
 import { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -28,6 +29,7 @@ const DEFAULT_ERRORS = {
 
 const Request = () => {
   const dispatch = useDispatch();
+  const { t } = useTranslation('common');
   const { editorText, variables, headers } = useSelector(selectEditorData);
   const [mode, setMode] = useState<string>('variables');
   const [graphqlRequest] = useGraphqlRequestMutation();
@@ -96,7 +98,7 @@ const Request = () => {
 
   const handleCopy = useCallback(() => {
     if (editorText) navigator.clipboard.writeText(editorText);
-  }, []);
+  }, [editorText]);
 
   return (
     <div className="request relative h-full">
@@ -116,7 +118,7 @@ const Request = () => {
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <title>Execute query</title>
+          <title>{t('execute_query')}</title>
           <path
             d="M1.32226e-07 1.6609C7.22332e-08 0.907329 0.801887 0.424528 1.46789 0.777117L15.3306 8.11621C16.0401 8.49182 16.0401 9.50818 15.3306 9.88379L1.46789 17.2229C0.801886 17.5755 1.36076e-06 17.0927 1.30077e-06 16.3391L1.32226e-07 1.6609Z"
             fill="currentColor"
@@ -138,7 +140,7 @@ const Request = () => {
           viewBox="0 0 460 460"
           xmlSpace="preserve"
         >
-          <title>Copy query</title>
+          <title>{t('copy_query')}</title>
           <g>
             <path
               d="M425.934,0H171.662c-18.122,0-32.864,14.743-32.864,32.864v77.134h30V32.864c0-1.579,1.285-2.864,2.864-2.864h254.272
@@ -155,17 +157,17 @@ const Request = () => {
         </svg>
       </button>
       <Accordion.Root
-        className="AccordionRoot absolute inset-x-0 bottom-2"
+        className="AccordionRoot inset-x-0 bottom-2"
         type="single"
         defaultValue="item-1"
         collapsible
       >
         <Accordion.Item className="AccordionItem" value="item-1">
           <Accordion.AccordionTrigger>
-            Headers & Variables ▼
+            {t('headers&variables')} ▼
           </Accordion.AccordionTrigger>
           <Accordion.AccordionContent className="AccordionContent">
-            {!!errors.query.length && <div>Incorrect Query</div>}
+            {!!errors.query.length && <div>{t('incorrect_query')}</div>}
 
             <div className="mb-4 border-b border-gray-200 dark:border-gray-700">
               <ul
@@ -185,7 +187,7 @@ const Request = () => {
                     role="tab"
                     onClick={() => setMode('variables')}
                   >
-                    Variables
+                    {t('variables')}
                   </button>
                 </li>
                 <li className="mr-2" role="presentation">
@@ -199,7 +201,7 @@ const Request = () => {
                     role="tab"
                     onClick={() => setMode('headers')}
                   >
-                    Headers
+                    {t('headers')}
                   </button>
                 </li>
               </ul>

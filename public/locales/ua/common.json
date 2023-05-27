@@ -28,5 +28,12 @@
   "go_to_main": "На головну",
   "sign_in/sign_up": "Увійти / Реєстрація",
   "go_to_main": "На головну",
-  "sign_out": "Вихід"
+  "sign_out": "Вихід",
+  "headers&variables": "Заголовки & Змінні",
+  "incorrect_query": "Некоректний запит",
+  "variables": "Змінні",
+  "headers": "Заголовки",
+  "execute_query": "Виконати запит",
+  "copy_query": "Копіювати запит",
+  "copy_response": "Копіювати відповідь"
 }
