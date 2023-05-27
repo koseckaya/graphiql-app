@@ -53,6 +53,10 @@ const Header = () => {
     });
   };
 
+  const handleNavOpen = () => {
+    return isNavOpen ? setIsNavOpen(false) : setIsNavOpen(true);
+  };
+
   const handleSignOut = () => {
     setIsModalOpen(true);
   };
@@ -75,11 +79,11 @@ const Header = () => {
     <header
       className={`sticky top-0 z-20 flex content-center justify-between border-b border-gray-200 ${background} px-2 md:p-4`}
     >
-      <div className="basis-1/2">
+      <div>
         <h1 className="h-full text-4xl font-bold">
           <Link
             href="/"
-            className="border-none text-secondary-color hover:text-blue-700"
+            className="border-none text-3xl text-secondary-color hover:text-blue-700 md:text-4xl"
           >
             {AppConfig.title}
           </Link>
@@ -133,14 +137,26 @@ const Header = () => {
         <div>
           <button
             type="button"
-            onClick={() => setIsNavOpen(true)}
+            onClick={handleNavOpen}
             className="group relative mr-2 md:hidden"
           >
-            <div className="relative flex h-[40px] w-[40px] items-center justify-center overflow-hidden rounded-full bg-gray-700 shadow-md ring-0 ring-gray-300 transition-all duration-200 group-focus:ring-4">
-              <div className="flex h-[20px] w-[20px] origin-center flex-col justify-between overflow-hidden transition-all duration-300 group-focus:translate-x-1.5">
-                <div className="h-[2px] w-7 origin-left bg-blue-100 transition-all delay-150 duration-300 group-focus:w-2/3 group-focus:rotate-[42deg]" />
-                <div className="h-[2px] w-7 rounded bg-white transition-all duration-300 group-focus:translate-x-10" />
-                <div className="h-[2px] w-7 origin-left bg-white transition-all delay-150 duration-300 group-focus:w-2/3 group-focus:rotate-[42deg]" />
+            <div className="relative flex h-[40px] w-[40px] items-center justify-center overflow-hidden rounded-full bg-gray-700 shadow-md ring-0 ring-gray-300 transition-all duration-200 group-focus:ring-2">
+              <div className="group-focus:translate-x-0.8 flex h-[20px] w-[20px] origin-center flex-col justify-between overflow-hidden transition-all duration-300">
+                <div
+                  className={`h-[2px] w-7 origin-left bg-blue-100 transition-all delay-150 duration-300 ${
+                    isNavOpen && 'group-focus:w-2/3 group-focus:rotate-[42deg]'
+                  }`}
+                />
+                <div
+                  className={`h-[2px] w-7 rounded bg-white transition-all duration-300 ${
+                    isNavOpen && 'group-focus:translate-x-10'
+                  }`}
+                />
+                <div
+                  className={`h-[2px] w-7 origin-left bg-white transition-all delay-150 duration-300 ${
+                    isNavOpen && 'group-focus:w-2/3 group-focus:-rotate-[42deg]'
+                  }`}
+                />
               </div>
             </div>
           </button>
