@@ -56,7 +56,7 @@ export const getStaticProps: GetStaticProps<
   { [key: string]: unknown },
   Params
 > = async (context) => {
-  const { locale } = context;
+  const { locale = 'en' } = context;
 
   return {
     props: {
