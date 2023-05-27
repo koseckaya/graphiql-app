@@ -8,6 +8,9 @@ module.exports = withBundleAnalyzer({
   eslint: {
     dirs: ['.'],
   },
+  images: {
+    unoptimized: true,
+  },
   poweredByHeader: false,
   trailingSlash: true,
   basePath: '',
