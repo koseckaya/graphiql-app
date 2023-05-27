@@ -1,7 +1,6 @@
-// @ts-nocheck
-import { React } from 'react';
+import React from 'react';
 
-class ErrorBoundary extends React.Component {
+class ErrorBoundary extends React.Component<any, { hasError: boolean }> {
   constructor(props: any) {
     super(props);
 
