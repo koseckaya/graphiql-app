@@ -21,11 +21,20 @@
   "password": "Password",
   "password_empty": " Create a password",
   "password_error": "Create a strong password",
-  "password_tip": "Strong password - minimum 8 symbols, at least one letter, one digit, one special character.",
+  "password_tip": "Strong password - minimum 8 symbols, at least one letter, one digit, one special character(!@#$%^&*)",
   "confirm_signout": "Are you sure you want to sign out?",
   "confirm_close_modal": "Yes, I'm sure",
   "cancel_close_modal": "No, cancel",
   "go_to_main": "Go to Main Page",
   "sign_in/sign_up": "Sign In / Sign Up",
-  "sign_out": "Sign Out"
+  "sign_out": "Sign Out",
+  "headers&variables": "Headers & Variables",
+  "incorrect_query": "Incorrect Query",
+  "variables": "Variables",
+  "headers": "Headers",
+  "execute_query": "Execute query",
+  "copy_query": "Copy query",
+  "copy_response": "Copy response"
+
+
 }

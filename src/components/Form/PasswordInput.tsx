@@ -26,7 +26,7 @@ const PasswordInput = () => {
         <Form.Message
           className="text-end text-[18px] text-white"
           match={(value) =>
-            !value.match(/^(?=.*[A-Za-z])(?=.*[!@#$&*])(?=.*[0-9]).{8,}$/)
+            !value.match(/^(?=.*\d)(?=.*[A-Za-z])(?=.*[!@#$%^&*]).{8,}$/)
           }
         >
           <p className="flex text-[16px] text-white opacity-[0.9]">

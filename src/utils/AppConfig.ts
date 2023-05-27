@@ -2,7 +2,7 @@
 
 export const AppConfig = {
   site_name: 'Starter',
-  title: 'Header',
+  title: 'GraphQL IDE',
   description: '',
   locale: 'en',
 };
