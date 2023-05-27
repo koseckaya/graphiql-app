@@ -7,7 +7,7 @@ interface LanguageSwitcherProps {
 const LanguageSwitcher = ({
   lang,
   onSwitchLang,
-  locales,
+  locales = [],
 }: LanguageSwitcherProps) => {
   return (
     <select
