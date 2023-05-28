@@ -1,9 +1,11 @@
 import * as Accordion from '@radix-ui/react-accordion';
+import type { GraphQLSchema } from 'graphql';
+import { buildClientSchema } from 'graphql';
 import { useTranslation } from 'next-i18next';
 import { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { useGraphqlRequestMutation } from '@/rtk/apiSlice';
+import { useGetSchemaQuery, useGraphqlRequestMutation } from '@/rtk/apiSlice';
 import {
   selectEditorData,
   setEditorText,
@@ -34,6 +36,14 @@ const Request = () => {
   const [mode, setMode] = useState<string>('variables');
   const [graphqlRequest] = useGraphqlRequestMutation();
   const [errors, setErrors] = useState(DEFAULT_ERRORS);
+
+  const apiSchema = useGetSchemaQuery('');
+  let schema: GraphQLSchema | null = null;
+
+  if (apiSchema && apiSchema.data) {
+    const apiIntroSchema = apiSchema.data.data;
+    schema = buildClientSchema(apiIntroSchema as any);
+  }
 
   const handleChange = (value: string) => {
     dispatch(setEditorText(value));
@@ -102,11 +112,14 @@ const Request = () => {
 
   return (
     <div className="request relative h-full">
-      <GQLTextarea
-        onInput={handleChange}
-        placeholder="Set GQL request"
-        value={editorText}
-      />
+      {schema && (
+        <GQLTextarea
+          onInput={handleChange}
+          placeholder="Set GQL request"
+          value={editorText}
+          schema={schema}
+        />
+      )}
       <button
         onClick={handleSend}
         type="button"
@@ -214,6 +227,7 @@ const Request = () => {
                     onInput={handleVariables}
                     placeholder="Set JSON variables"
                     value={variables}
+                    type="json"
                   />
                 </div>
               )}
@@ -223,6 +237,7 @@ const Request = () => {
                     onInput={handleHeaders}
                     placeholder="Set JSON headers"
                     value={headers}
+                    type="json"
                   />
                 </div>
               )}
@@ -232,12 +247,12 @@ const Request = () => {
       </Accordion.Root>
 
       {!!errors.variables.length && (
-        <div className="bottom-94 absolute left-1/2 text-red-600">
+        <div className="absolute bottom-72 right-2 text-red-600">
           {errors.variables}
         </div>
       )}
       {!!errors.headers.length && (
-        <div className="bottom-94 absolute left-1/2 text-red-600">
+        <div className="absolute bottom-72 right-2 text-red-600">
           {errors.headers}
         </div>
       )}
