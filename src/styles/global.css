@@ -1,0 +1,106 @@
+@import '../styles/form.css';
+@import '../styles/accordion.css';
+
+@tailwind base;
+
+a {
+  @apply text-blue-700;
+}
+
+/* a:hover {
+  @apply border-b-2 border-blue-700;
+} */
+
+@tailwind components;
+
+@tailwind utilities;
+
+.content p {
+  @apply my-6;
+}
+
+.content ul {
+  @apply my-6;
+}
+
+#__next {
+  height: 100vh;
+}
+
+:root {
+  --main-color: hsl(219, 29%, 18%);
+  --secondary-color: hsl(0, 0%, 100%);
+  --btn-color: hsl(158, 60%, 42%);
+  --color-info: hsl(219, 61%, 61%);
+  --color-secondary: hsl(347, 100%, 71%);
+  --color-error: hsl(13, 100%, 66%);
+}
+
+:root [class="ligth"] {
+  --secondary-color: hsl(0, 0%, 100%);
+  --btn-color: hsl(158, 60%, 42%);
+  --color-info: hsl(219, 61%, 61%);
+  --color-secondary: hsl(347, 100%, 71%);
+  --color-error: hsl(13, 100%, 66%);
+}
+
+@layer components {
+  @media (max-width: 850px) {
+  .burger {
+    font-size: 1.3rem;
+  }
+  .burger ul {
+    margin-right: 10px;
+  }
+  .burger li {
+    margin-right: 10px;
+  }
+  .burger select {
+    margin: 0;
+    padding: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  header {
+    padding: 0;
+  }
+  .burger {
+    visibility: hidden;
+    background-color: #4a5568;
+    flex-direction: column;
+    justify-content: center;
+    position: absolute;
+    text-align: start;
+    top: 56px;
+    row-gap: 0.5rem;
+    right: 0;
+    padding: 10px;
+    width: 190px;
+  }
+  .burger button {
+    margin: 5px 0;
+  }
+}
+}
+
+@layer utilities{
+  @media (max-width: 768px) {
+  .burger {
+    height: auto;
+  }
+}
+}
+
+.CodeMirror-code {
+  font-size: 12px;
+}
+.transition-width {
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.answer .CodeMirror{
+  height: 100%;
+}
+.request .CodeMirror {
+  min-height: 52%;
+}

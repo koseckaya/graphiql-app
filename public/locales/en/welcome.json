@@ -1,0 +1,12 @@
+{
+  "try_it": "Try it now",
+  "project_description": "is an interactive in-browser GraphQL IDE. This is a fantastic developer tool to help you form queries and explore your Schema.",
+  "team": "Team",
+  "responsible_for": "Responsible for",
+  "Mila": "Ludmila Koseckaya",
+  "Mila_info": "Editor, Variables section, Headers section, Response section",
+  "Vitaliy": "Vitalii Ponomarov",
+  "Vitaliy_info": "Documentation section, Responsive design",
+  "Zhanna": "Zhanna Chaikovska",
+  "Zhanna_info": "Welcome page, User authorization, Localization"
+}
