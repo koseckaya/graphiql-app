@@ -74,14 +74,11 @@ const Docs = () => {
       <h3>{data?.data.__type?.description}</h3>
       {data?.data.__type?.fields?.map((field) =>
         field.args.length ? (
-          <p key={field.name} className="m-2">
+          <div key={field.name} className="m-2">
             <span className="text-blue-200">{field.name}</span>(
             {field.args.map((arg, idx, arr) => (
-              <>
-                <span key={arg.name} className="text-rose-500">
-                  {arg.name}
-                </span>
-                :{' '}
+              <div style={{ display: 'inline' }} key={arg.name + field.name}>
+                <span className="text-rose-500">{arg.name}</span>:{' '}
                 <button
                   type="button"
                   className="cursor-pointer text-amber-400 hover:text-amber-600"
@@ -96,7 +93,7 @@ const Docs = () => {
                   {arg.name !== 'id' && arg.name !== 'ids' && arg.type.name}
                 </button>
                 {arr.length > 1 && idx !== arr.length - 1 && ', '}
-              </>
+              </div>
             ))}
             ):{' '}
             <button
@@ -113,9 +110,9 @@ const Docs = () => {
                 : field.type.name}
             </button>
             <p>{field.description}</p>
-          </p>
+          </div>
         ) : (
-          <p key={field.name} className="m-2">
+          <div key={field.name} className="m-2">
             <span className="text-blue-200">{field.name}</span>:{' '}
             <button
               type="button"
@@ -161,11 +158,11 @@ const Docs = () => {
                     )}]`}
             </button>
             <p>{field.description}</p>
-          </p>
+          </div>
         )
       )}
       {data?.data.__type?.inputFields?.map((field) => (
-        <p key={field.name} className="m-2">
+        <div key={field.name} className="m-2">
           <span className="text-blue-200">{field.name}</span>:{' '}
           <button
             type="button"
@@ -181,7 +178,7 @@ const Docs = () => {
               : field.type.name}
           </button>
           <p>{field.description}</p>
-        </p>
+        </div>
       ))}
     </div>
   ) : (
