@@ -11,7 +11,7 @@ export interface DataState {
 
 const initialState: DataState = {
   editorText: '',
-  variables: '{\n\n}',
+  variables: '{\n character(id: 1) { id, name }\n}',
   headers: '{\n\n}',
 };
 

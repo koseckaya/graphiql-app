@@ -3,6 +3,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import type {
   ApiRequestResponse,
   ApiResponse,
+  ApiSchemaResponse,
   MutationQuery,
 } from '@/types/apiTypes';
 
@@ -19,7 +20,7 @@ export const api = createApi({
     },
   }),
   endpoints: (builder) => ({
-    getSchema: builder.query<ApiResponse, string>({
+    getSchema: builder.query<ApiSchemaResponse, string>({
       query: () => ({
         body: {
           query:
