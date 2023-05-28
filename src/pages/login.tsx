@@ -5,10 +5,11 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import FormEl from '@/components/Form/FormEl';
+import { useAuthContext } from '@/context/contextAuth';
 import { Meta } from '@/layouts/Meta';
 import { setUser } from '@/rtk/userSlice';
 import { Main } from '@/templates/Main';
@@ -17,6 +18,8 @@ const Login = () => {
   const [isError, setIsError] = useState(false);
   const dispatch = useDispatch();
   const router = useRouter();
+  const { user: userAuth } = useAuthContext();
+
   const { t } = useTranslation('common');
   const handleLogin = (data: { [k: string]: string }) => {
     const { email, password } = data;
@@ -37,6 +40,10 @@ const Login = () => {
         setIsError(true);
       });
   };
+
+  React.useEffect(() => {
+    if (userAuth) router.push('/editor');
+  }, [userAuth]);
 
   return (
     <Main meta={<Meta title="Login" description="Sign In page" />}>
